@@ -1,7 +1,11 @@
-import React from "react";
+import Layout from "../../Layout/Layout";
 
 function LandingPage() {
-  return <div></div>;
+  return (
+    <Layout>
+      <div>LandingPage입니다.</div>
+    </Layout>
+  );
 }
 
 export default LandingPage;

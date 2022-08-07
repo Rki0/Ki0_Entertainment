@@ -1,22 +1,14 @@
-import { useState } from "react";
 import Header from "./Header/Header";
-import ToggleMenu from "./Header/ToggleMenu";
+import Footer from "./Footer";
 
-function Layout() {
-  const [toggleMenu, setToggleMenu] = useState(false);
-
-  const toggleMenuHandler = () => {
-    setToggleMenu((prev) => !prev);
-  };
-
+function Layout(props: { children: React.ReactNode }) {
   return (
-    <div className="relative">
-      <Header toggleMenuHandler={toggleMenuHandler} />
+    <div>
+      <Header />
 
-      <ToggleMenu
-        toggleMenu={toggleMenu}
-        toggleMenuHandler={toggleMenuHandler}
-      />
+      <main className="mt-[54px]">{props.children}</main>
+
+      <Footer />
     </div>
   );
 }

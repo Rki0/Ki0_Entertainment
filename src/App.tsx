@@ -1,14 +1,17 @@
 import { Routes, Route } from "react-router-dom";
-import Layout from "./Layout/Layout";
+import LandingPage from "./pages/LandingPage/LandingPage";
+import CompanyPage from "./pages/CompanyPage/CompanyPage";
+import ArtistPage from "./pages/ArtistPage/ArtistPage";
+import BusinessPage from "./pages/BusinessPage/BusinessPage";
 
 function App() {
   return (
-    <div>
-      <Layout />
-    </div>
-    // <Routes>
-    //   <Route path='/' />
-    // </Routes>
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/company" element={<CompanyPage />} />
+      <Route path="/artist" element={<ArtistPage />} />
+      <Route path="/business" element={<BusinessPage />} />
+    </Routes>
   );
 }
 
