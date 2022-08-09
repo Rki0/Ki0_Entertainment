@@ -5,10 +5,9 @@ function ToOtherPage() {
   return (
     <nav className="hidden xl:flex bg-white w-[84px] font-bold text-4xl fixed top-[108px] right-0 bottom-[80px]">
       {linkArr.map((item, index) => (
-        <div>
+        <div key={index}>
           <Link
             to={item.to}
-            key={index}
             className="block h-full border-l-2 border-black pt-36"
           >
             <h1
