@@ -11,7 +11,7 @@ function BusinessPage() {
       <div className="lg:flex lg:items-center lg:relative lg:mb-72 xl:pl-[100px]">
         <h1 className="font-bold text-4xl mt-36 px-4 mb-16 lg:text-6xl xl:text-7xl">
           작품으로 세상에 울림을 <br />
-          전하고 산업을 현신하여 <br />
+          전하고 산업을 혁신하여 <br />
           삶의 변화를 만들어갑니다.
         </h1>
 
