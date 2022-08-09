@@ -18,6 +18,10 @@ export const menuArr: MenuArrType[] = [
     route: "/business",
     title: "Business",
   },
+  {
+    route: "/loginout",
+    title: "Login/Logout",
+  },
 ];
 
 // ToggleMenu.tsx
