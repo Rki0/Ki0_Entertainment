@@ -2,6 +2,7 @@ import Layout from "../../Layout/Layout";
 import { artistArr } from "./Interface";
 import ArtistsList from "./ArtistsList";
 import { useRef } from "react";
+import ToOtherPage from "./ToOtherPage";
 
 function ArtistPage() {
   const artistRef = useRef<HTMLDivElement>(null);
@@ -21,6 +22,8 @@ function ArtistPage() {
 
   return (
     <Layout>
+      <ToOtherPage />
+
       <h1 className="font-bold text-3xl pl-4 mb-12 sm:text-6xl lg:pt-4 lg:mb-0">
         WE <br />
         WILL BE <br />
@@ -29,7 +32,7 @@ function ArtistPage() {
 
       <ArtistsList moveToArtist={moveToArtist} />
 
-      <section className="px-3 flex flex-col">
+      <article className="px-3 flex flex-col">
         {artistArr.map((item, index) => (
           <div
             className="mb-8 flex flex-col items-center lg:odd:items-end lg:even:items-start"
@@ -49,7 +52,7 @@ function ArtistPage() {
             </div>
           </div>
         ))}
-      </section>
+      </article>
     </Layout>
   );
 }

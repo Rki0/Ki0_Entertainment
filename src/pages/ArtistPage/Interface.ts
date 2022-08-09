@@ -37,3 +37,20 @@ export const artistArr: artistArrType[] = [
 export interface ArtistsListPropsType {
   moveToArtist: (index: number) => void;
 }
+
+// ToOtherPgae.tsx //
+interface linkArrType {
+  to: string;
+  title: string;
+}
+
+export const linkArr: linkArrType[] = [
+  {
+    to: "/company",
+    title: "Company",
+  },
+  {
+    to: "/business",
+    title: "Business",
+  },
+];
