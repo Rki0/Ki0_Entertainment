@@ -1,25 +1,63 @@
 import Layout from "../../Layout/Layout";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 function LoginPage() {
+  const [email, setEmail] = useState<string>("");
+  const [pswd, setPswd] = useState<string>("");
+
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    let body = {
+      email: email,
+      password: pswd,
+    };
+
+    console.log(body);
+
+    setEmail("");
+    setPswd("");
+  };
+
+  const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
+  const onChangePswd = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPswd(e.target.value);
+  };
+
   return (
     <Layout>
       <div className="flex flex-col items-center my-16">
         <h1 className="mb-4 md:text-xl">Login</h1>
 
-        <form className="flex flex-col items-center mb-12">
+        <form
+          className="flex flex-col items-center mb-12"
+          onSubmit={submitHandler}
+        >
           <input
             type="email"
-            className="border-2 border-black mb-2 h-12 pl-2 w-[300px] md:w-[500px] md:text-xl"
+            className="border-2 border-black mb-2 h-12 pl-2 w-[300px] md:w-[500px] md:text-xl focus:outline-none"
             placeholder="이메일을 입력해주세요"
+            required
+            value={email}
+            onChange={onChangeEmail}
           />
           <input
             type="password"
-            className="border-2 border-black mb-2 h-12 pl-2 w-[300px] md:w-[500px] md:text-xl"
+            className="border-2 border-black mb-2 h-12 pl-2 w-[300px] md:w-[500px] md:text-xl focus:outline-none"
             placeholder="비밀번호를 입력해주세요"
+            required
+            value={pswd}
+            onChange={onChangePswd}
           />
 
-          <button className="border-2 border-black w-[100px] md:w-[200px] md:text-xl">
+          <button
+            type="submit"
+            className="border-2 border-black w-[100px] md:w-[200px] md:text-xl"
+          >
             로그인
           </button>
         </form>

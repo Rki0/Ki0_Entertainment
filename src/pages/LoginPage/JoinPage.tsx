@@ -127,7 +127,7 @@ function JoinPage() {
           <div className="flex flex-col items-center">
             <input
               type="email"
-              className="border-2 border-black mb-2 h-12 pl-2 w-[300px] md:w-[500px] md:text-xl"
+              className="border-2 border-black mb-2 h-12 pl-2 w-[300px] md:w-[500px] md:text-xl focus:outline-none"
               placeholder="이메일을 입력해주세요"
               onChange={onChangeEmail}
               value={email}
@@ -148,7 +148,7 @@ function JoinPage() {
           <div className="flex flex-col items-center">
             <input
               type="password"
-              className="border-2 border-black mb-2 h-12 pl-2 w-[300px] md:w-[500px] md:text-xl"
+              className="border-2 border-black mb-2 h-12 pl-2 w-[300px] md:w-[500px] md:text-xl focus:outline-none"
               placeholder="비밀번호를 입력해주세요(8 - 25 자리)"
               onChange={onChangePswd}
               value={pswd}
@@ -169,7 +169,7 @@ function JoinPage() {
           <div className="flex flex-col items-center">
             <input
               type="password"
-              className="border-2 border-black mb-2 h-12 pl-2 w-[300px] md:w-[500px] md:text-xl"
+              className="border-2 border-black mb-2 h-12 pl-2 w-[300px] md:w-[500px] md:text-xl focus:outline-none"
               placeholder="비밀번호를 다시 한번 입력해주세요"
               onChange={onChangeCheckPswd}
               value={checkPswd}
