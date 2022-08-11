@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Ki0_Entertainment/static/css/main.d3251824.css",
+    "main.js": "/Ki0_Entertainment/static/js/main.01a5ed41.js",
+    "static/js/787.79b5345d.chunk.js": "/Ki0_Entertainment/static/js/787.79b5345d.chunk.js",
+    "index.html": "/Ki0_Entertainment/index.html",
+    "main.d3251824.css.map": "/Ki0_Entertainment/static/css/main.d3251824.css.map",
+    "main.01a5ed41.js.map": "/Ki0_Entertainment/static/js/main.01a5ed41.js.map",
+    "787.79b5345d.chunk.js.map": "/Ki0_Entertainment/static/js/787.79b5345d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d3251824.css",
+    "static/js/main.01a5ed41.js"
+  ]
+}
