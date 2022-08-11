@@ -6,6 +6,7 @@ function LoginPage() {
     <Layout>
       <div className="flex flex-col items-center my-16">
         <h1 className="mb-4 md:text-xl">Login</h1>
+
         <form className="flex flex-col items-center mb-12">
           <input
             type="email"
