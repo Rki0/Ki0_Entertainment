@@ -1,6 +1,5 @@
 import Layout from "../../Layout/Layout";
 import { useEffect, useState } from "react";
-import { EmitFlags } from "typescript";
 
 function JoinPage() {
   // email
@@ -35,8 +34,6 @@ function JoinPage() {
     setEmail("");
     setPswd("");
     setCheckPswd("");
-
-    console.log("body", body);
   };
 
   // email
