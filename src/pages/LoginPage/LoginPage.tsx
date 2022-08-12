@@ -1,10 +1,12 @@
 import Layout from "../../Layout/Layout";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { BiShow, BiHide } from "react-icons/bi";
 
 function LoginPage() {
   const [email, setEmail] = useState<string>("");
   const [pswd, setPswd] = useState<string>("");
+  const [showPswd, setShowPswd] = useState<boolean>(false);
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -28,6 +30,10 @@ function LoginPage() {
     setPswd(e.target.value);
   };
 
+  const toggleShowPswd = () => {
+    setShowPswd((prev) => !prev);
+  };
+
   return (
     <Layout>
       <div className="flex flex-col items-center my-16">
@@ -45,14 +51,27 @@ function LoginPage() {
             value={email}
             onChange={onChangeEmail}
           />
-          <input
-            type="password"
-            className="border-2 border-black mb-2 h-12 pl-2 w-[300px] md:w-[500px] md:text-xl focus:outline-none"
-            placeholder="비밀번호를 입력해주세요"
-            required
-            value={pswd}
-            onChange={onChangePswd}
-          />
+
+          <div className="relative">
+            <input
+              type={showPswd ? "text" : "password"}
+              className="border-2 border-black mb-2 h-12 pl-2 w-[300px] md:w-[500px] md:text-xl focus:outline-none"
+              placeholder="비밀번호를 입력해주세요"
+              required
+              value={pswd}
+              onChange={onChangePswd}
+              minLength={8}
+              maxLength={12}
+            />
+
+            <div className="absolute top-[16px] right-[20px] sm:right-[30px]">
+              {showPswd ? (
+                <BiShow onClick={toggleShowPswd} />
+              ) : (
+                <BiHide onClick={toggleShowPswd} />
+              )}
+            </div>
+          </div>
 
           <button
             type="submit"

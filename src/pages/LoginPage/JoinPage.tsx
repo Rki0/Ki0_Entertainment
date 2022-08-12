@@ -1,5 +1,6 @@
 import Layout from "../../Layout/Layout";
 import { useEffect, useState } from "react";
+import { BiShow, BiHide } from "react-icons/bi";
 
 function JoinPage() {
   // email
@@ -17,6 +18,23 @@ function JoinPage() {
   const [checkPswdMessage, setCheckPswdMessage] = useState<string>("");
   const [isCheckPswd, setIsCheckPswd] = useState<boolean>(false);
 
+  // show password
+  const [showPswd, setShowPswd] = useState<boolean>(false);
+
+  // show password check
+  const [showPswdCheck, setShowPswdCheck] = useState<boolean>(false);
+
+  // toggle showPswd
+  const toggleShowPswd = () => {
+    setShowPswd((prev) => !prev);
+  };
+
+  // toggle showPswdCheck
+  const toggleShowPswdCheck = () => {
+    setShowPswdCheck((prev) => !prev);
+  };
+
+  // sumbmit
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -146,14 +164,26 @@ function JoinPage() {
           </div>
 
           <div className="flex flex-col items-center">
-            <input
-              type="password"
-              className="border-2 border-black mb-2 h-12 pl-2 w-[300px] md:w-[500px] md:text-xl focus:outline-none"
-              placeholder="비밀번호를 입력해주세요(8 - 25 자리)"
-              onChange={onChangePswd}
-              value={pswd}
-              required
-            />
+            <div className="relative">
+              <input
+                type={showPswd ? "text" : "password"}
+                className="border-2 border-black mb-2 h-12 pl-2 w-[300px] md:w-[500px] md:text-xl focus:outline-none"
+                placeholder="비밀번호를 입력해주세요(8 - 12자리)"
+                onChange={onChangePswd}
+                value={pswd}
+                required
+                minLength={8}
+                maxLength={12}
+              />
+
+              <div className="absolute top-[16px] right-[20px] sm:right-[30px]">
+                {showPswd ? (
+                  <BiShow onClick={toggleShowPswd} />
+                ) : (
+                  <BiHide onClick={toggleShowPswd} />
+                )}
+              </div>
+            </div>
 
             <span
               className={
@@ -167,14 +197,26 @@ function JoinPage() {
           </div>
 
           <div className="flex flex-col items-center">
-            <input
-              type="password"
-              className="border-2 border-black mb-2 h-12 pl-2 w-[300px] md:w-[500px] md:text-xl focus:outline-none"
-              placeholder="비밀번호를 다시 한번 입력해주세요"
-              onChange={onChangeCheckPswd}
-              value={checkPswd}
-              required
-            />
+            <div className="relative">
+              <input
+                type={showPswdCheck ? "text" : "password"}
+                className="border-2 border-black mb-2 h-12 pl-2 w-[300px] md:w-[500px] md:text-xl focus:outline-none"
+                placeholder="비밀번호를 다시 한번 입력해주세요"
+                onChange={onChangeCheckPswd}
+                value={checkPswd}
+                required
+                minLength={8}
+                maxLength={12}
+              />
+
+              <div className="absolute top-[16px] right-[20px] sm:right-[30px]">
+                {showPswdCheck ? (
+                  <BiShow onClick={toggleShowPswdCheck} />
+                ) : (
+                  <BiHide onClick={toggleShowPswdCheck} />
+                )}
+              </div>
+            </div>
 
             <span
               className={

@@ -1,5 +1,5 @@
 // 공용 //
-interface artistArrType {
+export interface artistArrType {
   src: string;
   name: string;
   from: string;
@@ -54,3 +54,9 @@ export const linkArr: linkArrType[] = [
     title: "Business",
   },
 ];
+
+// Artist.tsx //
+export interface ArtistType {
+  src: string;
+  name: string;
+}
