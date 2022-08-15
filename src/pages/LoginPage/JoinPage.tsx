@@ -1,6 +1,10 @@
 import Layout from "../../Layout/Layout";
 import { useEffect, useState } from "react";
 import { BiShow, BiHide } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useAppDispatch } from "../../hooks";
+import { registerUser } from "../../_reducers/userSlice";
 
 function JoinPage() {
   // email
@@ -34,6 +38,9 @@ function JoinPage() {
     setShowPswdCheck((prev) => !prev);
   };
 
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
   // sumbmit
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -48,6 +55,18 @@ function JoinPage() {
       password: pswd,
       check: checkPswd,
     };
+
+    dispatch(registerUser(body))
+      .then((response) => {
+        if (response.payload?.success) {
+          alert("회원가입 성공. 로그인 화면으로 이동합니다.");
+          navigate("/login");
+        } else {
+          alert("회원가입 실패");
+          alert(response.payload?.message);
+        }
+      })
+      .catch((err) => console.log("회원가입 에러", err));
 
     setEmail("");
     setPswd("");
