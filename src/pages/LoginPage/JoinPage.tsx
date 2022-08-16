@@ -2,7 +2,6 @@ import Layout from "../../Layout/Layout";
 import { useEffect, useState } from "react";
 import { BiShow, BiHide } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useAppDispatch } from "../../hooks";
 import { registerUser } from "../../_reducers/userSlice";
 

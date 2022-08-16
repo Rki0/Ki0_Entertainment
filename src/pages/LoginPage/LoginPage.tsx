@@ -2,11 +2,17 @@ import Layout from "../../Layout/Layout";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { BiShow, BiHide } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../hooks";
+import { loginUser } from "../../_reducers/userSlice";
 
 function LoginPage() {
   const [email, setEmail] = useState<string>("");
   const [pswd, setPswd] = useState<string>("");
   const [showPswd, setShowPswd] = useState<boolean>(false);
+
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -16,7 +22,16 @@ function LoginPage() {
       password: pswd,
     };
 
-    console.log(body);
+    dispatch(loginUser(body))
+      .then((response) => {
+        if (response.payload?.loginSuccess) {
+          navigate("/");
+        } else {
+          alert("로그인 실패");
+          alert(response.payload?.message);
+        }
+      })
+      .catch((err) => console.log("로그인 에러", err));
 
     setEmail("");
     setPswd("");

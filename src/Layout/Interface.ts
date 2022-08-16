@@ -19,6 +19,10 @@ export const menuArr: MenuArrType[] = [
     title: "Business",
   },
   {
+    route: "/mypage",
+    title: "My Page",
+  },
+  {
     route: "/login",
     title: "Login",
   },

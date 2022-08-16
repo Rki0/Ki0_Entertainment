@@ -2,7 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
-interface MyKnownError {
+// 회원가입
+interface MyKnownErrorRegister {
   message: string;
   success: boolean;
 }
@@ -21,7 +22,7 @@ interface RegisterDataToSubmit {
 export const registerUser = createAsyncThunk<
   RegisterDataFromServerType,
   RegisterDataToSubmit,
-  { rejectValue: MyKnownError }
+  { rejectValue: MyKnownErrorRegister }
 >("users/registerUser", async (registerInfo, thunkAPI) => {
   try {
     // success 객체가 들어올 것으로 예상됨.
@@ -29,16 +30,89 @@ export const registerUser = createAsyncThunk<
     return data;
   } catch (err) {
     return thunkAPI.rejectWithValue({
-      message: "API 통신 실패",
+      message: "회원가입 API 통신 실패",
       success: false,
     });
   }
 });
 
+// 로그인
+interface MyKnownErrorLogin {
+  message: string;
+  loginSuccess: boolean;
+}
+
+interface LoginDataFromServerType {
+  loginSuccess?: boolean;
+  message?: string;
+  error?: any;
+}
+
+interface LoginDataToSubmit {
+  email: string;
+  password: string;
+}
+
+export const loginUser = createAsyncThunk<
+  LoginDataFromServerType,
+  LoginDataToSubmit,
+  { rejectValue: MyKnownErrorLogin }
+>("users/loginUser", async (loginInfo, thunkAPI) => {
+  try {
+    const { data } = await axios.post("/api/users/login", loginInfo);
+    return data;
+  } catch (err) {
+    return thunkAPI.rejectWithValue({
+      message: "로그인 API 통신 실패",
+      loginSuccess: false,
+    });
+  }
+});
+
+// 인증
+interface MyKnownErrorAuth {
+  message: string;
+  authSuccess: boolean;
+  isAuth?: boolean;
+  isAdmin?: boolean;
+}
+
+interface AuthDataFromServerType {
+  authSuccess: boolean;
+  message?: string;
+  error?: any;
+  isAuth: boolean;
+  email: string;
+  isAdmin: boolean;
+}
+
+export const authUser = createAsyncThunk<
+  AuthDataFromServerType,
+  null,
+  { rejectValue: MyKnownErrorAuth }
+>("users/authUser", async (authData, thunkAPI) => {
+  try {
+    const { data } = await axios.get("/api/users/auth");
+    return data;
+  } catch (err) {
+    return thunkAPI.rejectWithValue({
+      message: "인증 API 통신 실패",
+      authSuccess: false,
+    });
+  }
+});
+
+// slice
 export interface InitailStateType {
   // userData: object;
   userData: RegisterDataFromServerType;
-  error: null | MyKnownError | undefined;
+  error:
+    | null
+    | unknown
+    | undefined
+    | MyKnownErrorRegister
+    | MyKnownErrorLogin
+    | MyKnownErrorAuth;
   loading: boolean;
 }
 
@@ -57,6 +131,7 @@ export const userSlice = createSlice({
     // },
   },
   extraReducers: (builder) => {
+    // 회원가입 builder
     builder
       // 통신 중
       .addCase(registerUser.pending, (state) => {
@@ -71,6 +146,38 @@ export const userSlice = createSlice({
       })
       // 통신 에러
       .addCase(registerUser.rejected, (state, { payload }) => {
+        state.error = payload;
+        state.loading = false;
+      });
+
+    // 로그인 builder
+    builder
+      .addCase(loginUser.pending, (state) => {
+        state.error = null;
+        state.loading = true;
+      })
+      .addCase(loginUser.fulfilled, (state, { payload }) => {
+        state.error = null;
+        state.loading = false;
+        state.userData = payload;
+      })
+      .addCase(loginUser.rejected, (state, { payload }) => {
+        state.error = payload;
+        state.loading = false;
+      });
+
+    // 인증 builder
+    builder
+      .addCase(authUser.pending, (state) => {
+        state.error = null;
+        state.loading = true;
+      })
+      .addCase(authUser.fulfilled, (state, { payload }) => {
+        state.error = null;
+        state.loading = false;
+        state.userData = payload;
+      })
+      .addCase(authUser.rejected, (state, { payload }) => {
         state.error = payload;
         state.loading = false;
       });
