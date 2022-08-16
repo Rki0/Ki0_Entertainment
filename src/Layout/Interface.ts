@@ -28,6 +28,29 @@ export const menuArr: MenuArrType[] = [
   },
 ];
 
+export const notAuthmenuArr: MenuArrType[] = [
+  {
+    route: "/company",
+    title: "Company",
+  },
+  {
+    route: "/artist",
+    title: "Artist",
+  },
+  {
+    route: "/business",
+    title: "Business",
+  },
+  {
+    route: "/mypage",
+    title: "My Page",
+  },
+  {
+    route: "/",
+    title: "Logout",
+  },
+];
+
 // ToggleMenu.tsx
 // 컴포넌트 props 타입 정의
 export interface ToggleMenuPropsType {

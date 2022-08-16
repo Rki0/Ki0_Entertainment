@@ -44,6 +44,7 @@ interface MyKnownErrorLogin {
 
 interface LoginDataFromServerType {
   loginSuccess?: boolean;
+  email?: string;
   message?: string;
   error?: any;
 }
@@ -78,12 +79,12 @@ interface MyKnownErrorAuth {
 }
 
 interface AuthDataFromServerType {
-  authSuccess: boolean;
+  authSuccess?: boolean;
   message?: string;
   error?: any;
-  isAuth: boolean;
-  email: string;
-  isAdmin: boolean;
+  isAuth?: boolean;
+  email?: string;
+  isAdmin?: boolean;
 }
 
 export const authUser = createAsyncThunk<
@@ -102,10 +103,38 @@ export const authUser = createAsyncThunk<
   }
 });
 
+// 로그아웃
+interface MyKnownErrorLogout {
+  message: string;
+  logoutSuccess: boolean;
+}
+
+interface LogoutDataFromServerType {
+  logoutSuccess: boolean;
+  message?: string;
+  error?: any;
+}
+
+export const logoutUser = createAsyncThunk<
+  LogoutDataFromServerType,
+  null,
+  { rejectValue: MyKnownErrorLogout }
+>("users/logoutUser", async (logoutData, thunkAPI) => {
+  try {
+    const { data } = await axios.get("/api/users/logout");
+    return data;
+  } catch (err) {
+    return thunkAPI.rejectWithValue({
+      message: "로그아웃 API 통신 실패",
+      logoutSuccess: false,
+    });
+  }
+});
+
 // slice
 export interface InitailStateType {
-  // userData: object;
-  userData: RegisterDataFromServerType;
+  // userData: RegisterDataFromServerType;
+  userData: any;
   error:
     | null
     | unknown
@@ -178,6 +207,22 @@ export const userSlice = createSlice({
         state.userData = payload;
       })
       .addCase(authUser.rejected, (state, { payload }) => {
+        state.error = payload;
+        state.loading = false;
+      });
+
+    // 로그아웃 builder
+    builder
+      .addCase(logoutUser.pending, (state) => {
+        state.error = null;
+        state.loading = true;
+      })
+      .addCase(logoutUser.fulfilled, (state, { payload }) => {
+        state.error = null;
+        state.loading = false;
+        state.userData = payload;
+      })
+      .addCase(logoutUser.rejected, (state, { payload }) => {
         state.error = payload;
         state.loading = false;
       });

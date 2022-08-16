@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { AiOutlinePlusCircle, AiFillCheckCircle } from "react-icons/ai";
 import { ArtistType } from "./Interface";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { addLikeArtist } from "../../_reducers/likeSlice";
 
 function Artist({ src, name }: ArtistType) {
+  const userData = useAppSelector((state) => state.user.userData);
+  const dispatch = useAppDispatch();
   const [toggleLike, setToggleLike] = useState(false);
 
   // 이미지 클릭 시 관심 아티스트 추가 버튼 토글
@@ -16,6 +20,16 @@ function Artist({ src, name }: ArtistType) {
   const likeBtnHandler = () => {
     setLikeArtist((prev) => !prev);
 
+    let body = {
+      email: userData?.email,
+      src: src,
+      name: name,
+    };
+
+    dispatch(addLikeArtist(body)).then((response) =>
+      console.log("adding running", response.payload)
+    );
+
     setTimeout(() => {
       setToggleLike((prev) => !prev);
     }, 500);
@@ -23,10 +37,7 @@ function Artist({ src, name }: ArtistType) {
 
   return (
     <div className="flex flex-col items-center">
-      <div
-        className="lg:overflow-hidden lg:w-[300px] lg:h-auto mb-2 xl:w-[400px] hover:cursor-pointer relative"
-        // onClick={toggleShowLike}
-      >
+      <div className="lg:overflow-hidden lg:w-[300px] lg:h-auto mb-2 xl:w-[400px] hover:cursor-pointer relative">
         <img
           onClick={toggleShowLike}
           src={process.env.PUBLIC_URL + `${src}`}
