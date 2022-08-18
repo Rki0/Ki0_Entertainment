@@ -1,17 +1,16 @@
 import { useState } from "react";
-import { AiOutlinePlusCircle, AiFillCheckCircle } from "react-icons/ai";
+import { AiFillCheckCircle } from "react-icons/ai";
+import { GiCancel } from "react-icons/gi";
 import { ArtistType } from "./Interface";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { addLikeArtist } from "../../_reducers/likeSlice";
-import { useNavigate } from "react-router-dom";
+import { deleteLikeArtist } from "../../_reducers/likeSlice";
 
 function Artist({ src, name }: ArtistType) {
   const userData = useAppSelector((state) => state.user.userData);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const [toggleLike, setToggleLike] = useState(false);
 
-  // 이미지 클릭 시 관심 아티스트 추가 버튼 토글
+  // 이미지 클릭 시 관심 아티스트 제거 버튼 토글
   const toggleShowLike = () => {
     setToggleLike((prev) => !prev);
   };
@@ -20,33 +19,21 @@ function Artist({ src, name }: ArtistType) {
 
   // 관심 아티스트 추가 버튼 클릭 시
   const likeBtnHandler = () => {
-    if (userData?.isAuth) {
-      setLikeArtist((prev) => !prev);
+    setLikeArtist((prev) => !prev);
 
-      let body = {
-        email: userData?.email,
-        src: src,
-        name: name,
-      };
+    let body = {
+      email: userData?.email,
+      name: name,
+    };
 
-      dispatch(addLikeArtist(body)).then((response) =>
-        console.log("adding running", response.payload)
-      );
+    dispatch(deleteLikeArtist(body)).then((response) =>
+      console.log("remove like", response.payload)
+    );
 
-      setTimeout(() => {
-        setToggleLike((prev) => !prev);
-      }, 500);
-    } else {
-      alert("먼저 로그인을 해주세요.");
-      navigate("/login");
-    }
+    setTimeout(() => {
+      setToggleLike((prev) => !prev);
+    }, 500);
   };
-
-  // 피드백
-  // 1. 아티스트 리스트에서 클릭된 아티스트만 강조되면 좋을 것 같다
-  // 2. 아티스트에 마우스 호버하면 빈 화면에 아티스트 경력이 나타나면 좋겠다
-  // 3. 마이 페이지에서 아티스트 클릭했을 때 아티스트 이름이 보였으면 좋겠다
-  // 4. 마이 페이지에서 아티스트 삭제시 바로 확인 가능했으면 좋겠다.
 
   return (
     <div className="flex flex-col items-center">
@@ -66,14 +53,14 @@ function Artist({ src, name }: ArtistType) {
               onClick={likeBtnHandler}
             >
               {likeArtist ? (
+                <div className="flex flex-col items-center">
+                  <GiCancel size={50} className="mb-4" />
+                  <span>관심 아티스트 해제 완료</span>
+                </div>
+              ) : (
                 <div className="flex flex-col justify-center items-center">
                   <AiFillCheckCircle size={50} className="mb-4" />
                   <span>추가 완료</span>
-                </div>
-              ) : (
-                <div className="flex flex-col items-center">
-                  <AiOutlinePlusCircle size={50} className="mb-4" />
-                  <span>관심 아티스트 추가</span>
                 </div>
               )}
             </button>
