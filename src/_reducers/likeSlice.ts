@@ -103,8 +103,27 @@ export const deleteLikeArtist = createAsyncThunk<
 });
 
 // slice
+// export interface InitailStateType {
+//   likeData: any;
+//   error:
+//     | null
+//     | unknown
+//     | undefined
+//     | MyKnownErrorLike
+//     | MyKnownErrorLoadLike
+//     | MyKnownErrorDeleteLike;
+//   loading: boolean;
+// }
+
+// const initialState: InitailStateType = {
+//   likeData: {},
+//   error: null,
+//   loading: false,
+// };
+
 export interface InitailStateType {
   likeData: any;
+  artistArr: any;
   error:
     | null
     | unknown
@@ -117,6 +136,7 @@ export interface InitailStateType {
 
 const initialState: InitailStateType = {
   likeData: {},
+  artistArr: [],
   error: null,
   loading: false,
 };
@@ -124,7 +144,22 @@ const initialState: InitailStateType = {
 export const likeSlice = createSlice({
   name: "like",
   initialState,
-  reducers: {},
+  reducers: {
+    adoptArtistList: (state, action: PayloadAction<string>) => {
+      // filter는 원본 변화가 없다
+      // let newState = state.artistArr.filter(
+      //   (item: any) => item.name !== action.payload
+      // );
+      // return newState;
+      // 원본을 변화시키는 메서드가 필요함. splice 사용해보자
+      for (let i = 0; i < state.artistArr.length; i++) {
+        if (state.artistArr[i].name === action.payload) {
+          state.artistArr.splice(i, 1);
+          i--;
+        }
+      }
+    },
+  },
   extraReducers: (builder) => {
     // 관심 아티스트 추가 builder
     builder
@@ -157,6 +192,12 @@ export const likeSlice = createSlice({
         state.error = null;
         state.loading = false;
         state.likeData = payload;
+        // []에 다음에 push되어서 다른 인덱스로 들어가버림
+        // state.artistArr.push(payload.myLike);
+        // concat은 새로운 배열을 반환하므로 원래 배열은 변하지 않음. []로 남아있음
+        // state.artistArr.concat(payload.myLike);
+        // spread 연산자를 사용해서 해보자
+        state.artistArr = [...payload.myLike];
       })
       // 통신 에러
       .addCase(loadLikeArtist.rejected, (state, { payload }) => {
@@ -185,7 +226,6 @@ export const likeSlice = createSlice({
   },
 });
 
-// export const { deleteLikeList } = likeSlice.actions;
-export const {} = likeSlice.actions;
+export const { adoptArtistList } = likeSlice.actions;
 
 export default likeSlice.reducer;

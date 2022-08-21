@@ -4,6 +4,7 @@ import ArtistsList from "./ArtistsList";
 import { useRef } from "react";
 import ToOtherPage from "./ToOtherPage";
 import Artist from "./Artist";
+import ArtistCareer from "./ArtistCareer";
 
 function ArtistPage() {
   // const artistRef = useRef<any>([]);
@@ -30,7 +31,7 @@ function ArtistPage() {
       <ArtistsList moveToArtist={moveToArtist} />
 
       <article className="px-3 flex flex-col xl:px-[50px]">
-        {artistArr.map((item, index) => (
+        {/* {artistArr.map((item, index) => (
           <div
             className="mb-8 flex flex-col items-center lg:odd:items-end lg:even:items-start"
             key={index}
@@ -39,6 +40,23 @@ function ArtistPage() {
             }}
           >
             <Artist src={item.src} name={item.name} />
+          </div>
+        ))} */}
+        {artistArr.map((item, index) => (
+          <div
+            key={index}
+            className="flex flex-col items-center lg:odd:items-end lg:even:items-start"
+          >
+            <ArtistCareer />
+
+            <div
+              className="mb-8"
+              ref={(element) => {
+                artistRef.current[index] = element;
+              }}
+            >
+              <Artist src={item.src} name={item.name} />
+            </div>
           </div>
         ))}
       </article>

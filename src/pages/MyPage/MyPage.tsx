@@ -1,23 +1,20 @@
 import Layout from "../../Layout/Layout";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { loadLikeArtist } from "../../_reducers/likeSlice";
 import Artist from "./Artist";
 
 function MyPage() {
   const dispatch = useAppDispatch();
   const userData = useAppSelector((state) => state.user.userData);
-
-  const [likeAritstList, setLikeArtistList] = useState([]);
+  const artistArr = useAppSelector((state) => state.like.artistArr);
 
   useEffect(() => {
     let body = {
       email: userData?.email,
     };
 
-    dispatch(loadLikeArtist(body))
-      .then((response) => setLikeArtistList(response.payload?.myLike))
-      .catch((err) => console.log(err));
+    dispatch(loadLikeArtist(body));
   }, [userData]);
 
   return (
@@ -27,8 +24,8 @@ function MyPage() {
       </h1>
 
       <div className="flex flex-col items-center lg:flex-row lg:justify-around lg:flex-wrap">
-        {likeAritstList ? (
-          likeAritstList?.map((item: any, index) => (
+        {artistArr ? (
+          artistArr?.map((item: any, index: number) => (
             <Artist src={item.src} name={item.name} key={index} />
           ))
         ) : (
