@@ -1,7 +1,7 @@
 import Layout from "../../Layout/Layout";
 import { artistArr } from "./Interface";
 import ArtistsList from "./ArtistsList";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import ToOtherPage from "./ToOtherPage";
 import Artist from "./Artist";
 import ArtistCareer from "./ArtistCareer";
@@ -10,6 +10,7 @@ function ArtistPage() {
   // const artistRef = useRef<any>([]);
   // const artistRef = useRef(new Array(artistArr.length));
   const artistRef = useRef<null[] | HTMLDivElement[]>([]);
+  const careerRef = useRef<null[] | HTMLDivElement[]>([]);
 
   const moveToArtist = (index: number) => {
     artistRef.current[index]?.scrollIntoView({
@@ -17,6 +18,67 @@ function ArtistPage() {
       block: "center",
     });
   };
+
+  // 스크롤에 따라 아티스트 수상 경력 보여줌
+  const checkScrollAndShowCareer = () => {
+    if (
+      artistRef.current[0] &&
+      artistRef.current[1] &&
+      artistRef.current[2] &&
+      artistRef.current[3] &&
+      artistRef.current[4]
+    ) {
+      if (
+        artistRef.current[0]?.getBoundingClientRect().top +
+          artistRef.current[0]?.getBoundingClientRect().height / 2 +
+          window.pageYOffset >
+        window.scrollY
+      ) {
+        careerRef.current[0]?.classList.add("lg:visible");
+        careerRef.current[0]?.classList.add("text-black");
+      } else if (
+        artistRef.current[1]?.getBoundingClientRect().top +
+          artistRef.current[1]?.getBoundingClientRect().height / 2 +
+          window.pageYOffset >
+        window.scrollY
+      ) {
+        careerRef.current[1]?.classList.add("lg:visible");
+        careerRef.current[1]?.classList.add("text-black");
+      } else if (
+        artistRef.current[2]?.getBoundingClientRect().top +
+          artistRef.current[2]?.getBoundingClientRect().height / 2 +
+          window.pageYOffset >
+        window.scrollY
+      ) {
+        careerRef.current[2]?.classList.add("lg:visible");
+        careerRef.current[2]?.classList.add("text-black");
+      } else if (
+        artistRef.current[3]?.getBoundingClientRect().top +
+          artistRef.current[3]?.getBoundingClientRect().height / 2 +
+          window.pageYOffset >
+        window.scrollY
+      ) {
+        careerRef.current[3]?.classList.add("lg:visible");
+        careerRef.current[3]?.classList.add("text-black");
+      } else if (
+        artistRef.current[4]?.getBoundingClientRect().top +
+          artistRef.current[4]?.getBoundingClientRect().height +
+          window.pageYOffset >
+        window.scrollY
+      ) {
+        careerRef.current[4]?.classList.add("lg:visible");
+        careerRef.current[4]?.classList.add("text-black");
+      }
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", checkScrollAndShowCareer);
+
+    return () => {
+      window.removeEventListener("scroll", checkScrollAndShowCareer);
+    };
+  }, [window.scroll]);
 
   return (
     <Layout>
@@ -31,23 +93,19 @@ function ArtistPage() {
       <ArtistsList moveToArtist={moveToArtist} />
 
       <article className="px-3 flex flex-col xl:px-[50px]">
-        {/* {artistArr.map((item, index) => (
-          <div
-            className="mb-8 flex flex-col items-center lg:odd:items-end lg:even:items-start"
-            key={index}
-            ref={(element) => {
-              artistRef.current[index] = element;
-            }}
-          >
-            <Artist src={item.src} name={item.name} />
-          </div>
-        ))} */}
         {artistArr.map((item, index) => (
           <div
             key={index}
-            className="flex flex-col items-center lg:odd:items-end lg:even:items-start"
+            className="flex flex-col items-center lg:flex-row lg:justify-between lg:items-center lg:even:flex-row-reverse"
           >
-            <ArtistCareer />
+            <div
+              className="invisible text-white transition-all duration-500 ease-in-out"
+              ref={(element) => {
+                careerRef.current[index] = element;
+              }}
+            >
+              <ArtistCareer career={item.career} />
+            </div>
 
             <div
               className="mb-8"

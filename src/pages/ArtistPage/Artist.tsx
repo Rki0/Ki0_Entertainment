@@ -48,12 +48,6 @@ function Artist({ src, name }: ArtistType) {
 
   // 피드백
   // 1. 아티스트 리스트에서 클릭된 아티스트만 강조되면 좋을 것 같다(ArtistList.tsx)
-  // 2. 아티스트에 마우스 호버하면 빈 화면에 아티스트 경력이 나타나면 좋겠다(ArtistPage.tsx)
-  // 3. 아티스트 추가에 제한이 없어서, 같은 아티스트가 추가되는 문제
-  // 4. 3번으로 인해서 아티스트 삭제시 중복된 아티스트 전부가 삭제되는 문제
-  // 3,4번은 3번만 해결하면 됨
-  // 3번은 DB 모델 생성에서 unique로 해결하려고 했으나, 안 먹힌다.
-  // 따라서, 라우터에서 조건 설정을 해줘야할듯
 
   return (
     <div className="flex flex-col items-center">

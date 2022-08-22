@@ -1,14 +1,11 @@
-import React from "react";
+import { ArtistCareerPropsType } from "./Interface";
 
-function ArtistCareer() {
+function ArtistCareer({ career }: ArtistCareerPropsType) {
   return (
-    <div>
-      <p>이것은 아티스트의 수상 경력1입니다.</p>
-      <p>이것은 아티스트의 수상 경력2입니다.</p>
-      <p>이것은 아티스트의 수상 경력3입니다.</p>
-      <p>이것은 아티스트의 수상 경력4입니다.</p>
-      <p>이것은 아티스트의 수상 경력5입니다.</p>
-      <p>이것은 아티스트의 수상 경력6입니다.</p>
+    <div className="hidden lg:block mx-10 font-medium text-xl xl:text-2xl">
+      {career.map((item, index) => (
+        <p key={index}>{item}</p>
+      ))}
     </div>
   );
 }
