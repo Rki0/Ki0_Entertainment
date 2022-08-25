@@ -72,6 +72,7 @@ export const artistArr: artistArrType[] = [
 // ArtistList.tsx //
 export interface ArtistsListPropsType {
   moveToArtist: (index: number) => void;
+  currArtist: number;
 }
 
 // ToOtherPgae.tsx //

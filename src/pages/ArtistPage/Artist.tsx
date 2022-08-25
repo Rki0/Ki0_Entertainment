@@ -46,9 +46,6 @@ function Artist({ src, name }: ArtistType) {
     }
   };
 
-  // 피드백
-  // 1. 아티스트 리스트에서 클릭된 아티스트만 강조되면 좋을 것 같다(ArtistList.tsx)
-
   return (
     <div className="flex flex-col items-center">
       <div className="lg:overflow-hidden lg:w-[300px] lg:h-auto mb-2 xl:w-[400px] hover:cursor-pointer relative">

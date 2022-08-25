@@ -3,11 +3,12 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   // calc를 사용할 수 있게 만들어준다.
   mode: "jit",
-  theme: {
-    extend: {},
-  },
-  variants: {
-    extend: {},
-  },
-  plugins: [],
 };
+
+// module.exports = {
+//   content: ["./src/**/*.{html,js,ts,tsx}", "./public/index.html"],
+//   theme: {
+//     extend: {},
+//   },
+//   plugins: [],
+// };
