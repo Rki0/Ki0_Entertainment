@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { AiOutlinePlusCircle, AiFillCheckCircle } from "react-icons/ai";
+import {
+  AiOutlinePlusCircle,
+  AiFillCheckCircle,
+  AiOutlineClose,
+} from "react-icons/ai";
 import { ArtistType } from "./Interface";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { addLikeArtist } from "../../_reducers/likeSlice";
@@ -41,7 +45,7 @@ function Artist({ src, name }: ArtistType) {
         setToggleLike((prev) => !prev);
       }, 500);
     } else {
-      alert("먼저 로그인을 해주세요.");
+      alert("로그인 후 이용 가능한 기능입니다.");
       navigate("/login");
     }
   };
@@ -57,10 +61,16 @@ function Artist({ src, name }: ArtistType) {
         />
 
         {toggleLike ? (
-          <div className="bg-[rgba(0,0,0,0.4)] absolute top-0 left-0 w-full h-full flex justify-cetner items-center">
+          <div className="bg-[rgba(0,0,0,0.4)] absolute top-0 left-0 w-full h-full flex justify-cetner items-center text-white">
+            <AiOutlineClose
+              size={25}
+              className="absolute top-1 right-1"
+              onClick={toggleShowLike}
+            />
+
             <button
               type="button"
-              className="text-xl w-full flex flex-col items-center text-white font-bold"
+              className="text-xl w-full flex flex-col items-center font-bold"
               onClick={likeBtnHandler}
             >
               {likeArtist ? (
