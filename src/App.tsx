@@ -13,6 +13,11 @@ import Auth from "./hoc/Auth";
 // "deploy": "gh-pages -d build"
 // "homepage": "https://Rki0.github.io/Ki0_Entertainment"
 
+// craco 설정
+// "start": "craco start",
+// "build": "craco build",
+// "test": "craco test",
+
 function App() {
   // 누구나 접근 가능
   const AuthenticLandingPage = Auth(LandingPage, null);
