@@ -8,6 +8,11 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import JoinPage from "./pages/LoginPage/JoinPage";
 import Auth from "./hoc/Auth";
 
+// Netlify 배포로 인하여 gh-pages 관련 코드 삭제
+// "predeploy": "npm run build",
+// "deploy": "gh-pages -d build"
+// "homepage": "https://Rki0.github.io/Ki0_Entertainment"
+
 function App() {
   // 누구나 접근 가능
   const AuthenticLandingPage = Auth(LandingPage, null);
