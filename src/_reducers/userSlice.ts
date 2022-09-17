@@ -60,7 +60,10 @@ export const loginUser = createAsyncThunk<
   { rejectValue: MyKnownErrorLogin }
 >("users/loginUser", async (loginInfo, thunkAPI) => {
   try {
-    const { data } = await axios.post("/api/users/login", loginInfo);
+    const { data } = await axios.post(
+      "http://localhost:5000/api/users/login",
+      loginInfo
+    );
     return data;
   } catch (err) {
     return thunkAPI.rejectWithValue({
