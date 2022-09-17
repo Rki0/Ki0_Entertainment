@@ -1,6 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
+
+// const instance = axios.create({
+//   baseURL: "http://localhost:5000/",
+// });
 
 // 회원가입
 interface MyKnownErrorRegister {
@@ -27,6 +30,9 @@ export const registerUser = createAsyncThunk<
   try {
     // success 객체가 들어올 것으로 예상됨.
     const { data } = await axios.post("/api/users/register", registerInfo);
+    // const { data } = await instance.post("/api/users/register", registerInfo, {
+    //   withCredentials: true,
+    // });
     return data;
   } catch (err) {
     return thunkAPI.rejectWithValue({
@@ -60,10 +66,10 @@ export const loginUser = createAsyncThunk<
   { rejectValue: MyKnownErrorLogin }
 >("users/loginUser", async (loginInfo, thunkAPI) => {
   try {
-    const { data } = await axios.post(
-      "http://localhost:5000/api/users/login",
-      loginInfo
-    );
+    const { data } = await axios.post("/api/users/login", loginInfo);
+    // const { data } = await instance.post("/api/users/login", loginInfo, {
+    //   withCredentials: true,
+    // });
     return data;
   } catch (err) {
     return thunkAPI.rejectWithValue({
@@ -97,6 +103,9 @@ export const authUser = createAsyncThunk<
 >("users/authUser", async (authData, thunkAPI) => {
   try {
     const { data } = await axios.get("/api/users/auth");
+    // const { data } = await instance.get("/api/users/auth", {
+    //   withCredentials: true,
+    // });
     return data;
   } catch (err) {
     return thunkAPI.rejectWithValue({
@@ -125,6 +134,9 @@ export const logoutUser = createAsyncThunk<
 >("users/logoutUser", async (logoutData, thunkAPI) => {
   try {
     const { data } = await axios.get("/api/users/logout");
+    // const { data } = await instance.get("/api/users/logout", {
+    //   withCredentials: true,
+    // });
     return data;
   } catch (err) {
     return thunkAPI.rejectWithValue({
