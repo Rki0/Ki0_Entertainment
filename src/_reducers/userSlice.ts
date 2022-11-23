@@ -148,8 +148,8 @@ export const logoutUser = createAsyncThunk<
 
 // slice
 export interface InitailStateType {
-  // userData: RegisterDataFromServerType;
   userData: any;
+  authData: any;
   error:
     | null
     | unknown
@@ -162,6 +162,7 @@ export interface InitailStateType {
 
 const initialState: InitailStateType = {
   userData: {},
+  authData: {},
   error: null,
   loading: false,
 };
@@ -169,11 +170,7 @@ const initialState: InitailStateType = {
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {
-    // registerUser: (state, action: PayloadAction<object>) => {
-    //   return state;
-    // },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     // 회원가입 builder
     builder
@@ -219,7 +216,7 @@ export const userSlice = createSlice({
       .addCase(authUser.fulfilled, (state, { payload }) => {
         state.error = null;
         state.loading = false;
-        state.userData = payload;
+        state.authData = payload;
       })
       .addCase(authUser.rejected, (state, { payload }) => {
         state.error = payload;
