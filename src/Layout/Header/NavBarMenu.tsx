@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 function NavBarMenu() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const userData = useAppSelector((state) => state.user.userData);
+  const authData = useAppSelector((state) => state.user.userData);
 
   const logoutHandler = () => {
     dispatch(logoutUser(null))
@@ -18,9 +18,9 @@ function NavBarMenu() {
   };
 
   return (
-    <nav className="hidden lg:block w-4/5">
+    <nav className="hidden w-4/5 lg:block">
       <ul className="flex items-center justify-around text-xl font-bold">
-        {userData?.isAuth
+        {authData?.isAuth
           ? notAuthmenuArr.map((item, index) =>
               index === notAuthmenuArr.length - 1 ? (
                 <button onClick={logoutHandler} key={index}>
