@@ -103,7 +103,10 @@ export const authUser = createAsyncThunk<
 >("users/authUser", async (authData, thunkAPI) => {
   try {
     // const { data } = await axios.get("/api/users/auth");
-    const { data } = await instance.get("/api/users/auth", {
+    // const { data } = await instance.get("/api/users/auth", {
+    //   withCredentials: true,
+    // });
+    const { data } = await instance.post("/api/users/auth", authData, {
       withCredentials: true,
     });
     return data;

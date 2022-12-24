@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useAppDispatch } from "../hooks";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import { useNavigate } from "react-router-dom";
 import { authUser } from "../_reducers/userSlice";
 
@@ -27,12 +27,17 @@ export default function Auth(
 
   const navigate = useNavigate();
 
+  /////// 실험 시작
+  const userData = useAppSelector((state) => state.user.userData);
+  /////// 실험 끝
+
   function AuthenticationCheck() {
     const dispatch = useAppDispatch();
 
     // 백엔드에서 사용자 권한 정보를 가져옴
     useEffect(() => {
-      dispatch(authUser(null)).then((response) => {
+      // dispatch(authUser(null)).then((response) => {
+      dispatch(authUser(userData?.loginSuccess)).then((response) => {
         // 로그인 하지 않은 상태에서
         if (!response.payload?.isAuth) {
           // 로그인한 유저만 출입 가능한 페이지에 가려고 한다면
