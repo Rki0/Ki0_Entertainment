@@ -10,7 +10,7 @@ import { addLikeArtist } from "../../_reducers/likeSlice";
 import { useNavigate } from "react-router-dom";
 
 function Artist({ src, name }: ArtistType) {
-  const userData = useAppSelector((state) => state.user.userData);
+  const authData = useAppSelector((state) => state.user.authData);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [toggleLike, setToggleLike] = useState(false);
@@ -24,11 +24,11 @@ function Artist({ src, name }: ArtistType) {
 
   // 관심 아티스트 추가 버튼 클릭 시
   const likeBtnHandler = () => {
-    if (userData?.isAuth) {
+    if (authData?.isAuth) {
       setLikeArtist((prev) => !prev);
 
       let body = {
-        email: userData?.email,
+        email: authData?.email,
         src: src,
         name: name,
       };
@@ -70,11 +70,11 @@ function Artist({ src, name }: ArtistType) {
 
             <button
               type="button"
-              className="text-xl w-full flex flex-col items-center font-bold"
+              className="flex flex-col items-center w-full text-xl font-bold"
               onClick={likeBtnHandler}
             >
               {likeArtist ? (
-                <div className="flex flex-col justify-center items-center">
+                <div className="flex flex-col items-center justify-center">
                   <AiFillCheckCircle size={50} className="mb-4" />
                   <span>추가 완료</span>
                 </div>

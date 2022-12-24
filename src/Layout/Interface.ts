@@ -28,7 +28,7 @@ export const menuArr: MenuArrType[] = [
   },
 ];
 
-export const notAuthmenuArr: MenuArrType[] = [
+export const authmenuArr: MenuArrType[] = [
   {
     route: "/company",
     title: "Company",

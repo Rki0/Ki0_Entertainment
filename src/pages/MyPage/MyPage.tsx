@@ -3,11 +3,14 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { useEffect } from "react";
 import { loadLikeArtist } from "../../_reducers/likeSlice";
 import Artist from "./Artist";
+import { useNavigate } from "react-router-dom";
 
 function MyPage() {
   const dispatch = useAppDispatch();
   const userData = useAppSelector((state) => state.user.userData);
+  const authData = useAppSelector((state) => state.user.authData);
   const artistArr = useAppSelector((state) => state.like.artistArr);
+  const navigate = useNavigate();
 
   useEffect(() => {
     let body = {
@@ -17,9 +20,16 @@ function MyPage() {
     dispatch(loadLikeArtist(body));
   }, [userData]);
 
-  return (
+  useEffect(() => {
+    if (!authData.isAuth) {
+      alert("로그인이 필요한 기능입니다.");
+      navigate("/login");
+    }
+  }, []);
+
+  return authData.isAuth ? (
     <Layout>
-      <h1 className="font-bold text-center text-xl md:text-3xl xl:text-5xl lg:my-6">
+      <h1 className="text-xl font-bold text-center md:text-3xl xl:text-5xl lg:my-6">
         관심 있는 아티스트
       </h1>
 
@@ -33,7 +43,7 @@ function MyPage() {
         )}
       </div>
     </Layout>
-  );
+  ) : null;
 }
 
 export default MyPage;

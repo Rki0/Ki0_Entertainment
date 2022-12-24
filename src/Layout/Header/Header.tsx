@@ -12,7 +12,7 @@ function Header() {
   };
 
   return (
-    <header className="flex w-screen justify-between items-center p-2 fixed top-0 bg-white z-10">
+    <header className="fixed top-0 z-30 flex items-center justify-between w-screen p-2 bg-white">
       <Link className="text-3xl lg:w-1/5" to="/">
         Ki0.Ent
       </Link>

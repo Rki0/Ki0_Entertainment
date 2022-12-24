@@ -25,6 +25,7 @@ function LoginPage() {
     dispatch(loginUser(body))
       .then((response) => {
         if (response.payload?.loginSuccess) {
+          alert("로그인되었습니다. 메인 페이지로 이동합니다.");
           navigate("/");
         } else {
           alert("로그인 실패");
