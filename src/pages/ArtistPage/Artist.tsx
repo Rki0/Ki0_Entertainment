@@ -10,6 +10,7 @@ import { addLikeArtist } from "../../_reducers/likeSlice";
 import { useNavigate } from "react-router-dom";
 
 function Artist({ src, name }: ArtistType) {
+  const userData = useAppSelector((state) => state.user.userData);
   const authData = useAppSelector((state) => state.user.authData);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ function Artist({ src, name }: ArtistType) {
       setLikeArtist((prev) => !prev);
 
       let body = {
-        email: authData?.email,
+        email: userData?.email,
         src: src,
         name: name,
       };
