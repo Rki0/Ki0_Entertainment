@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// const instance = axios.create({
-//   baseURL: "http://localhost:5000",
-// });
+const instance = axios.create({
+  baseURL: "http://localhost:5000",
+});
 
 // 회원가입
 interface MyKnownErrorRegister {
@@ -66,10 +66,10 @@ export const loginUser = createAsyncThunk<
   { rejectValue: MyKnownErrorLogin }
 >("users/loginUser", async (loginInfo, thunkAPI) => {
   try {
-    const { data } = await axios.post("/api/users/login", loginInfo);
-    // const { data } = await instance.post("/api/users/login", loginInfo, {
-    //   withCredentials: true,
-    // });
+    // const { data } = await axios.post("/api/users/login", loginInfo);
+    const { data } = await instance.post("/api/users/login", loginInfo, {
+      withCredentials: true,
+    });
     return data;
   } catch (err) {
     return thunkAPI.rejectWithValue({
