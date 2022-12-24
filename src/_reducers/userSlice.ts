@@ -96,9 +96,13 @@ interface AuthDataFromServerType {
   isAdmin?: boolean;
 }
 
+interface AuthDataToSubmit {
+  loginSuccess: boolean;
+}
+
 export const authUser = createAsyncThunk<
   AuthDataFromServerType,
-  null,
+  AuthDataToSubmit,
   { rejectValue: MyKnownErrorAuth }
 >("users/authUser", async (authData, thunkAPI) => {
   try {
