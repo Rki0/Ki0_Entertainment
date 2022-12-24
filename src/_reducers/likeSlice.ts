@@ -2,9 +2,9 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// const instance = axios.create({
-//   baseURL: "http://localhost:5000",
-// });
+const instance = axios.create({
+  baseURL: "http://localhost:5000",
+});
 
 // 관심 아티스트 추가
 interface MyKnownErrorLike {
@@ -31,10 +31,10 @@ export const addLikeArtist = createAsyncThunk<
   { rejectValue: MyKnownErrorLike }
 >("users/addLikeArtist", async (likeInfo, thunkAPI) => {
   try {
-    const { data } = await axios.post("/api/users/like", likeInfo);
-    // const { data } = await instance.post("/api/users/like", likeInfo, {
-    //   withCredentials: true,
-    // });
+    // const { data } = await axios.post("/api/users/like", likeInfo);
+    const { data } = await instance.post("/api/users/like", likeInfo, {
+      withCredentials: true,
+    });
     return data;
   } catch (err) {
     return thunkAPI.rejectWithValue({
@@ -67,10 +67,10 @@ export const loadLikeArtist = createAsyncThunk<
   { rejectValue: MyKnownErrorLoadLike }
 >("users/loadLikeArtist", async (loadLikeInfo, thunkAPI) => {
   try {
-    const { data } = await axios.post("/api/users/loadlike", loadLikeInfo);
-    // const { data } = await instance.post("/api/users/loadlike", loadLikeInfo, {
-    //   withCredentials: true,
-    // });
+    // const { data } = await axios.post("/api/users/loadlike", loadLikeInfo);
+    const { data } = await instance.post("/api/users/loadlike", loadLikeInfo, {
+      withCredentials: true,
+    });
     return data;
   } catch (err) {
     return thunkAPI.rejectWithValue({
@@ -102,12 +102,12 @@ export const deleteLikeArtist = createAsyncThunk<
   { rejectValue: MyKnownErrorDeleteLike }
 >("users/deleteLikeArtist", async (deleteLikeInfo, thunkAPI) => {
   try {
-    const { data } = await axios.post("/api/users/deletelike", deleteLikeInfo);
-    // const { data } = await instance.post(
-    //   "/api/users/deletelike",
-    //   deleteLikeInfo,
-    //   { withCredentials: true }
-    // );
+    // const { data } = await axios.post("/api/users/deletelike", deleteLikeInfo);
+    const { data } = await instance.post(
+      "/api/users/deletelike",
+      deleteLikeInfo,
+      { withCredentials: true }
+    );
     return data;
   } catch (err) {
     return thunkAPI.rejectWithValue({
