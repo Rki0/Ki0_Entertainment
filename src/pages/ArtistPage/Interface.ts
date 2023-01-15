@@ -75,23 +75,6 @@ export interface ArtistsListPropsType {
   currArtist: number;
 }
 
-// ToOtherPgae.tsx //
-interface linkArrType {
-  to: string;
-  title: string;
-}
-
-export const linkArr: linkArrType[] = [
-  {
-    to: "/company",
-    title: "Company",
-  },
-  {
-    to: "/business",
-    title: "Business",
-  },
-];
-
 // Artist.tsx //
 export interface ArtistType {
   src: string;

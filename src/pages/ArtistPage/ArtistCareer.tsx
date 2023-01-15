@@ -1,8 +1,10 @@
+import React from "react";
+
 import { ArtistCareerPropsType } from "./Interface";
 
 function ArtistCareer({ career }: ArtistCareerPropsType) {
   return (
-    <div className="hidden lg:block mx-20 font-medium text-xl xl:text-2xl">
+    <div className="hidden mx-20 text-xl font-medium lg:block xl:text-2xl">
       {career.map((item, index) => (
         <p key={index}>{item}</p>
       ))}
@@ -10,4 +12,4 @@ function ArtistCareer({ career }: ArtistCareerPropsType) {
   );
 }
 
-export default ArtistCareer;
+export default React.memo(ArtistCareer);

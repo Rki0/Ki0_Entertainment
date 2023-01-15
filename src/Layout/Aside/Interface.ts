@@ -6,6 +6,10 @@ interface linkArrType {
 
 export const linkArr: linkArrType[] = [
   {
+    to: "/company",
+    title: "Company",
+  },
+  {
     to: "/artist",
     title: "Artist",
   },

@@ -1,4 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import {
   AiOutlinePlusCircle,
   AiFillCheckCircle,
@@ -7,7 +9,6 @@ import {
 import { ArtistType } from "./Interface";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { addLikeArtist } from "../../_reducers/likeSlice";
-import { useNavigate } from "react-router-dom";
 
 function Artist({ src, name }: ArtistType) {
   const userData = useAppSelector((state) => state.user.userData);
@@ -95,4 +96,4 @@ function Artist({ src, name }: ArtistType) {
   );
 }
 
-export default Artist;
+export default React.memo(Artist);

@@ -1,14 +1,13 @@
-import Layout from "../../Layout/Layout";
-import { artistArr } from "./Interface";
-import ArtistsList from "./ArtistsList";
 import { useEffect, useRef, useState } from "react";
-import ToOtherPage from "./ToOtherPage";
+
+import Layout from "../../Layout/Layout";
+import ArtistsList from "./ArtistsList";
 import Artist from "./Artist";
 import ArtistCareer from "./ArtistCareer";
+import ToOtherPage from "../../Layout/Aside/ToOtherPage";
+import { artistArr } from "./Interface";
 
 function ArtistPage() {
-  // const artistRef = useRef<any>([]);
-  // const artistRef = useRef(new Array(artistArr.length));
   const artistRef = useRef<null[] | HTMLDivElement[]>([]);
   const careerRef = useRef<null[] | HTMLDivElement[]>([]);
 

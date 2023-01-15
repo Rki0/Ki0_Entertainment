@@ -1,7 +1,8 @@
-import { GiHamburgerMenu } from "react-icons/gi";
-import NavBarMenu from "./NavBarMenu";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { GiHamburgerMenu } from "react-icons/gi";
+
+import NavBarMenu from "./NavBarMenu";
 import ToggleMenu from "./ToggleMenu";
 
 function Header() {
@@ -32,4 +33,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default React.memo(Header);

@@ -1,7 +1,7 @@
 import Layout from "../../Layout/Layout";
 import Platforms from "./Platforms";
 import Entertainment from "./Entertainment";
-import ToOtherPage from "./ToOtherPage";
+import ToOtherPage from "../../Layout/Aside/ToOtherPage";
 
 function BusinessPage() {
   return (
@@ -9,7 +9,7 @@ function BusinessPage() {
       <ToOtherPage />
 
       <div className="lg:flex lg:items-center lg:relative lg:mb-72 xl:pl-[100px]">
-        <h1 className="font-bold text-4xl mt-36 px-4 mb-16 lg:text-6xl xl:text-7xl">
+        <h1 className="px-4 mb-16 text-4xl font-bold mt-36 lg:text-6xl xl:text-7xl">
           작품으로 세상에 울림을 <br />
           전하고 산업을 혁신하여 <br />
           삶의 변화를 만들어갑니다.
