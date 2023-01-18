@@ -1,8 +1,9 @@
+import React from "react";
 import { artistArr, ArtistsListPropsType } from "./Interface";
 
 function ArtistsList({ moveToArtist, currArtist }: ArtistsListPropsType) {
   return (
-    <nav className="hidden lg:flex justify-center w-screen top-1/2 fixed">
+    <nav className="fixed justify-center hidden w-screen lg:flex top-1/2">
       <ul className="flex flex-col items-center font-semibold xl:text-xl">
         {artistArr.map((item, index) => (
           <li

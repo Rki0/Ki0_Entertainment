@@ -1,60 +1,42 @@
-import { Routes, Route } from "react-router-dom";
-import LandingPage from "./pages/LandingPage/LandingPage";
-import CompanyPage from "./pages/CompanyPage/CompanyPage";
-import ArtistPage from "./pages/ArtistPage/ArtistPage";
-import BusinessPage from "./pages/BusinessPage/BusinessPage";
-import MyPage from "./pages/MyPage/MyPage";
-import LoginPage from "./pages/LoginPage/LoginPage";
-import JoinPage from "./pages/LoginPage/JoinPage";
-import Auth from "./hoc/Auth";
+import React, { Suspense } from "react";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 
-// Netlify 배포로 인하여 gh-pages 관련 코드 삭제
-// "predeploy": "npm run build",
-// "deploy": "gh-pages -d build"
-// "homepage": "https://Rki0.github.io/Ki0_Entertainment"
+import { AuthContext } from "./context/auth-context";
+import { useAuth } from "./hoc/auth-hook";
+import LoadingSpinner from "./shared/LoadingSpinner";
 
-// craco 설정
-// "start": "craco start",
-// "build": "craco build",
-// "test": "craco test",
+const LandingPage = React.lazy(() => import("./pages/LandingPage/LandingPage"));
+const CompanyPage = React.lazy(() => import("./pages/CompanyPage/CompanyPage"));
+const ArtistPage = React.lazy(() => import("./pages/ArtistPage/ArtistPage"));
+const BusinessPage = React.lazy(
+  () => import("./pages/BusinessPage/BusinessPage")
+);
+const MyPage = React.lazy(() => import("./pages/MyPage/MyPage"));
+const LoginPage = React.lazy(() => import("./pages/LoginPage/LoginPage"));
+const JoinPage = React.lazy(() => import("./pages/LoginPage/JoinPage"));
 
 function App() {
-  // 누구나 접근 가능
-  const AuthenticLandingPage = Auth(LandingPage, null);
-  const AuthenticCompanyPage = Auth(CompanyPage, null);
-  const AuthenticArtistPage = Auth(ArtistPage, null);
-  const AuthenticBusinessPage = Auth(BusinessPage, null);
-
-  // 로그인한 사람만 접근 가능
-  const AuthenticMyPage = Auth(MyPage, true);
-
-  // 로그인한 사람은 접근 불가능
-  const AuthenticLogin = Auth(LoginPage, false);
-  const AuthenticJoin = Auth(JoinPage, false);
+  const { token, login, logout, userId } = useAuth();
 
   return (
-    <Routes>
-      <Route path="/" element={<AuthenticLandingPage />} />
-      <Route path="/company" element={<AuthenticCompanyPage />} />
-      <Route path="/artist" element={<AuthenticArtistPage />} />
-      <Route path="/business" element={<AuthenticBusinessPage />} />
-      <Route path="/mypage" element={<AuthenticMyPage />} />
-      <Route path="/login" element={<AuthenticLogin />} />
-      <Route path="/join" element={<AuthenticJoin />} />
-    </Routes>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <AuthContext.Provider
+        value={{ isLoggedIn: !!token, token, userId, login, logout }}
+      >
+        <Suspense fallback={<LoadingSpinner />}>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/company" element={<CompanyPage />} />
+            <Route path="/artist" element={<ArtistPage />} />
+            <Route path="/business" element={<BusinessPage />} />
+            <Route path="/mypage/:userId" element={<MyPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/join" element={<JoinPage />} />
+          </Routes>
+        </Suspense>
+      </AuthContext.Provider>
+    </BrowserRouter>
   );
-
-  // return (
-  //   <Routes>
-  //     <Route path="/" element={<LandingPage />} />
-  //     <Route path="/company" element={<CompanyPage />} />
-  //     <Route path="/artist" element={<ArtistPage />} />
-  //     <Route path="/business" element={<BusinessPage />} />
-  //     <Route path="/mypage" element={<MyPage />} />
-  //     <Route path="/login" element={<LoginPage />} />
-  //     <Route path="/join" element={<JoinPage />} />
-  //   </Routes>
-  // );
 }
 
 export default App;

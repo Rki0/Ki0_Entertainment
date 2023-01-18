@@ -1,3 +1,5 @@
+import React from "react";
+
 import Layout from "../../Layout/Layout";
 import ToOtherPage from "../../Layout/Aside/ToOtherPage";
 

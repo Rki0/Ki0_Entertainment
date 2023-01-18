@@ -1,11 +1,13 @@
+import React from "react";
+
 function Platforms() {
   return (
     <article className="mb-16 px-4 lg:flex xl:pl-[100px]">
       <div className="mb-12 lg:w-1/2 lg:mb-0 lg:mr-8">
         <hr className="hidden lg:block h-[2px] bg-black mb-4" />
 
-        <h2 className="font-bold mb-8">PLATFORMS</h2>
-        <h3 className="font-semibold text-xl">
+        <h2 className="mb-8 font-bold">PLATFORMS</h2>
+        <h3 className="text-xl font-semibold">
           Ki0.Ent의 <br />
           모든 콘텐츠와 서비스를 <br />
           연결하고 확장시킵니다.
@@ -16,7 +18,7 @@ function Platforms() {
         <hr className="h-[2px] bg-black mb-4" />
 
         <div className="mb-8">
-          <h4 className="font-extrabold text-lg mb-4">기영 네이버</h4>
+          <h4 className="mb-4 text-lg font-extrabold">기영 네이버</h4>
           <p>
             기영 네이버(Ki0 Naver)는 글로벌 ICT 기업으로서 한국 최대 검색포털
             네기버를 서비스하고 있고, 그 계열사에서 모바일 메신저 라잉, 동영상
@@ -31,7 +33,7 @@ function Platforms() {
         <hr className="h-[2px] bg-black mb-4" />
 
         <div className="mb-8">
-          <h4 className="font-extrabold text-lg mb-4">기영 카카오</h4>
+          <h4 className="mb-4 text-lg font-extrabold">기영 카카오</h4>
           <p>
             기영 카카오는 우리의 일상을 새롭게 만드는 ‘모바일 라이프 플랫폼’
             기업입니다. 더 나은 세상을 만들기 위해 사람과 사람 그리고 사람과

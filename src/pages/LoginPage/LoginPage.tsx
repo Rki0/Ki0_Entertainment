@@ -1,92 +1,97 @@
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
 import Layout from "../../Layout/Layout";
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { BiShow, BiHide } from "react-icons/bi";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../hooks";
-import { loginUser } from "../../_reducers/userSlice";
+import { AuthContext } from "../../context/auth-context";
+import { useHttpClient } from "../../hoc/http-hook";
+import LoadingSpinner from "../../shared/LoadingSpinner";
+import Input from "../../components/Input";
+import { useForm } from "../../hoc/form-hook";
+import {
+  VALIDATOR_EMAIL,
+  VALIDATOR_MINLENGTH,
+  VALIDATOR_MAXLENGTH,
+} from "../../utils/validators";
+import Modal from "../../shared/Modal";
 
 function LoginPage() {
-  const [email, setEmail] = useState<string>("");
-  const [pswd, setPswd] = useState<string>("");
-  const [showPswd, setShowPswd] = useState<boolean>(false);
+  const auth = useContext(AuthContext);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+
+  const [formState, inputHandler] = useForm(
+    {
+      email: {
+        value: "",
+        isValid: false,
+      },
+      password: {
+        value: "",
+        isValid: false,
+      },
+    },
+    false
+  );
 
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
-  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    let body = {
-      email: email,
-      password: pswd,
-    };
+    try {
+      const responseData = await sendRequest(
+        "http://localhost:5000/api/users/login",
+        "POST",
+        JSON.stringify({
+          email: formState.inputs.email.value,
+          password: formState.inputs.password.value,
+        }),
+        { "Content-Type": "application/json" }
+      );
 
-    dispatch(loginUser(body))
-      .then((response) => {
-        if (response.payload?.loginSuccess) {
-          alert("로그인되었습니다. 메인 페이지로 이동합니다.");
-          navigate("/");
-        } else {
-          alert("로그인 실패");
-          alert(response.payload?.message);
-        }
-      })
-      .catch((err) => console.log("로그인 에러", err));
+      auth.login(responseData.userId, responseData.token);
 
-    setEmail("");
-    setPswd("");
-  };
-
-  const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-
-  const onChangePswd = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPswd(e.target.value);
-  };
-
-  const toggleShowPswd = () => {
-    setShowPswd((prev) => !prev);
+      alert("로그인되었습니다. 메인 페이지로 이동합니다.");
+      navigate("/");
+    } catch (err) {
+      // alert("로그인 실패");
+    }
   };
 
   return (
     <Layout>
+      {error && <Modal error={error} clearModal={clearError} />}
+
+      {isLoading && <LoadingSpinner />}
+
       <div className="flex flex-col items-center my-16">
-        <h1 className="mb-4 md:text-xl">Login</h1>
+        <h1 className="mb-4 md:text-xl lg:text-2xl xl:text-3xl">Login</h1>
 
         <form
-          className="flex flex-col items-center mb-12"
+          className="flex flex-col items-center justify-center mb-12"
           onSubmit={submitHandler}
         >
-          <input
+          <Input
+            id="email"
             type="email"
-            className="border-2 border-black mb-2 h-12 pl-2 w-[300px] md:w-[500px] md:text-xl focus:outline-none"
             placeholder="이메일을 입력해주세요"
-            required
-            value={email}
-            onChange={onChangeEmail}
+            label="E-Mail"
+            errorText="이메일을 반드시 입력해야합니다."
+            validText={null}
+            onInput={inputHandler}
+            validators={[VALIDATOR_EMAIL()]}
           />
 
           <div className="relative">
-            <input
-              type={showPswd ? "text" : "password"}
-              className="border-2 border-black mb-2 h-12 pl-2 w-[300px] md:w-[500px] md:text-xl focus:outline-none"
+            <Input
+              id="password"
+              type="password"
               placeholder="비밀번호를 입력해주세요"
-              required
-              value={pswd}
-              onChange={onChangePswd}
-              minLength={8}
-              maxLength={12}
+              label="Password"
+              errorText="비밀번호를 반드시 입력해야합니다."
+              validText={null}
+              onInput={inputHandler}
+              validators={[VALIDATOR_MINLENGTH(8), VALIDATOR_MAXLENGTH(12)]}
             />
-
-            <div className="absolute top-[16px] right-[20px] sm:right-[30px]">
-              {showPswd ? (
-                <BiShow onClick={toggleShowPswd} />
-              ) : (
-                <BiHide onClick={toggleShowPswd} />
-              )}
-            </div>
           </div>
 
           <button

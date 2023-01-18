@@ -1,11 +1,13 @@
+import React from "react";
+
 function Entertainment() {
   return (
     <article className="mb-16 px-4 lg:flex xl:pl-[100px]">
       <div className="mb-12 lg:w-1/2 lg:mb-0 lg:mr-8">
         <hr className="hidden lg:block h-[2px] bg-black mb-4" />
 
-        <h2 className="font-bold mb-8">ENTERTAINMENT</h2>
-        <h3 className="font-semibold text-xl mb-12">
+        <h2 className="mb-8 font-bold">ENTERTAINMENT</h2>
+        <h3 className="mb-12 text-xl font-semibold">
           Ki0.Ent의 <br />
           다양한 컨텐츠를 제작하고 <br />
           다듬어서, 제공합니다.
@@ -16,7 +18,7 @@ function Entertainment() {
         <hr className="h-[2px] bg-black mb-4" />
 
         <div className="mb-8">
-          <h4 className="font-extrabold text-lg mb-4">OG 엔터테인먼트</h4>
+          <h4 className="mb-4 text-lg font-extrabold">OG 엔터테인먼트</h4>
           <p>
             OG 엔터테인먼트는 대한민국 가요계에 한 획을 그은 문보훈과 아이들
             출신의 문보훈 대표 프로듀서가 1999년 설립했습니다. HELIUS를 시작으로
@@ -31,7 +33,7 @@ function Entertainment() {
         <hr className="h-[2px] bg-black mb-4" />
 
         <div className="mb-8">
-          <h4 className="font-extrabold text-lg mb-4">MS 엔터테인먼트</h4>
+          <h4 className="mb-4 text-lg font-extrabold">MS 엔터테인먼트</h4>
           <p>
             1997년 김수완 총괄 프로듀서가 설립한 MS엔터테인먼트는 한국
             엔터테인먼트 산업의 선구자이자 글로벌 한류 및 K-Pop 열풍을 선도하는

@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import Layout from "../../Layout/Layout";
 import ArtistsList from "./ArtistsList";
-import Artist from "./Artist";
 import ArtistCareer from "./ArtistCareer";
 import ToOtherPage from "../../Layout/Aside/ToOtherPage";
 import { artistArr } from "./Interface";
+import ArtistContainer from "../../components/ArtistContainer";
 
 function ArtistPage() {
   const artistRef = useRef<null[] | HTMLDivElement[]>([]);
@@ -20,7 +20,6 @@ function ArtistPage() {
 
   // ArtistList에 몇 번째 아티스트가 보여지는 중인지 알려주기 위함
   const [currArtist, setCurrArtist] = useState(0);
-
   // 스크롤에 따라 아티스트 수상 경력 보여줌
   const checkScrollAndShowCareer = () => {
     if (
@@ -78,15 +77,12 @@ function ArtistPage() {
       }
     }
   };
-
   useEffect(() => {
     window.addEventListener("scroll", checkScrollAndShowCareer);
-
     return () => {
       window.removeEventListener("scroll", checkScrollAndShowCareer);
     };
   }, [window.scroll]);
-
   return (
     <Layout>
       <ToOtherPage />
@@ -95,9 +91,7 @@ function ArtistPage() {
         WILL BE <br />
         THE BEST
       </h1>
-
       <ArtistsList moveToArtist={moveToArtist} currArtist={currArtist} />
-
       <article className="px-3 flex flex-col xl:px-[50px]">
         {artistArr.map((item, index) => (
           <div
@@ -112,14 +106,17 @@ function ArtistPage() {
             >
               <ArtistCareer career={item.career} />
             </div>
-
             <div
               className="mb-8"
               ref={(element) => {
                 artistRef.current[index] = element;
               }}
             >
-              <Artist src={item.src} name={item.name} />
+              <ArtistContainer
+                src={item.src}
+                name={item.name}
+                artistId={null}
+              />
             </div>
           </div>
         ))}

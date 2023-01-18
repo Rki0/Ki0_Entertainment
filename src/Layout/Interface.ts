@@ -22,33 +22,6 @@ export const menuArr: MenuArrType[] = [
     route: "/mypage",
     title: "My Page",
   },
-  {
-    route: "/login",
-    title: "Login",
-  },
-];
-
-export const authmenuArr: MenuArrType[] = [
-  {
-    route: "/company",
-    title: "Company",
-  },
-  {
-    route: "/artist",
-    title: "Artist",
-  },
-  {
-    route: "/business",
-    title: "Business",
-  },
-  {
-    route: "/mypage",
-    title: "My Page",
-  },
-  {
-    route: "/",
-    title: "Logout",
-  },
 ];
 
 // ToggleMenu.tsx

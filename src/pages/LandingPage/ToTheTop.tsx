@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TbArrowTopBar } from "react-icons/tb";
 
 function ToTheTop() {
@@ -27,7 +27,7 @@ function ToTheTop() {
       className="bg-[rgba(0,0,0,0.7)] rounded-full text-white z-10 w-[30px] h-[30px] md:w-[50px] md:h-[50px] fixed bottom-[45px] right-2 hover:cursor-pointer"
       onClick={goToTop}
     >
-      <div className="flex justify-center items-center h-full w-full">
+      <div className="flex items-center justify-center w-full h-full">
         <TbArrowTopBar />
       </div>
     </div>
