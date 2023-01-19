@@ -4,6 +4,10 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { AuthContext } from "./context/auth-context";
 import { useAuth } from "./hoc/auth-hook";
 import LoadingSpinner from "./shared/LoadingSpinner";
+import AnyRoute from "./routes/AnyRoute";
+import PrivateRoute from "./routes/PrivateRoute";
+import PublicRoute from "./routes/PublicRoute";
+import UnValidPage from "./pages/UnValidPage/UnValidPage";
 
 const LandingPage = React.lazy(() => import("./pages/LandingPage/LandingPage"));
 const CompanyPage = React.lazy(() => import("./pages/CompanyPage/CompanyPage"));
@@ -25,13 +29,23 @@ function App() {
       >
         <Suspense fallback={<LoadingSpinner />}>
           <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/company" element={<CompanyPage />} />
-            <Route path="/artist" element={<ArtistPage />} />
-            <Route path="/business" element={<BusinessPage />} />
-            <Route path="/mypage/:userId" element={<MyPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/join" element={<JoinPage />} />
+            <Route element={<AnyRoute />}>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/company" element={<CompanyPage />} />
+              <Route path="/artist" element={<ArtistPage />} />
+              <Route path="/business" element={<BusinessPage />} />
+            </Route>
+
+            <Route element={<PrivateRoute />}>
+              <Route path="/mypage/:userId" element={<MyPage />} />
+            </Route>
+
+            <Route element={<PublicRoute />}>
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/join" element={<JoinPage />} />
+            </Route>
+
+            <Route path="/*" element={<UnValidPage />} />
           </Routes>
         </Suspense>
       </AuthContext.Provider>

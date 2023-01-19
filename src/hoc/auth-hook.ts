@@ -7,7 +7,6 @@ export const useAuth = () => {
   const [tokenExpirationTime, setTokenExpirationTime] = useState<any>();
   const [userId, setUserId] = useState<boolean | null>(false);
 
-  // 파라미터 타입 확정 필요
   const login = useCallback((uid: any, token: any, expirationDate: any) => {
     setToken(token);
     setUserId(uid);

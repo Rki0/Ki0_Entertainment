@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Layout from "../../Layout/Layout";
@@ -14,6 +14,7 @@ import {
   VALIDATOR_PASSWORD,
 } from "../../utils/validators";
 import Modal from "../../shared/Modal";
+import Button from "../../components/Button";
 
 function JoinPage() {
   const auth = useContext(AuthContext);
@@ -131,17 +132,9 @@ function JoinPage() {
             </div>
           </div>
 
-          <button
-            className={
-              formState.isValid
-                ? "border-2 border-black w-[100px] md:w-[200px] md:text-xl"
-                : "border-2 border-black bg-black text-white w-[100px] md:w-[200px] md:text-xl"
-            }
-            type="submit"
-            disabled={!formState.isValid}
-          >
+          <Button isValid={formState.isValid} submitMode={true}>
             회원가입
-          </button>
+          </Button>
         </form>
       </div>
     </Layout>

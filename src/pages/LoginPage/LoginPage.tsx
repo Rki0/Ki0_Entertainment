@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import Layout from "../../Layout/Layout";
@@ -13,6 +13,7 @@ import {
   VALIDATOR_MAXLENGTH,
 } from "../../utils/validators";
 import Modal from "../../shared/Modal";
+import Button from "../../components/Button";
 
 function LoginPage() {
   const auth = useContext(AuthContext);
@@ -94,25 +95,22 @@ function LoginPage() {
             />
           </div>
 
-          <button
-            type="submit"
-            className="border-2 border-black w-[100px] md:w-[200px] md:text-xl"
-          >
+          <Button isValid={null} submitMode={true}>
             로그인
-          </button>
+          </Button>
         </form>
 
         <div className="flex flex-col items-center">
           <Link
             to="/join"
-            className="border-2 border-black w-[100px] text-center mb-2 md:w-[200px] md:text-xl"
+            className="border-2 border-black w-[100px] text-center mb-2 md:w-[200px] md:text-xl hover:text-white hover:bg-black"
           >
             회원가입
           </Link>
 
           <Link
             to="/findpswd"
-            className="border-2 border-black w-[100px] text-center md:w-[200px] md:text-xl"
+            className="border-2 border-black w-[100px] text-center md:w-[200px] md:text-xl hover:text-white hover:bg-black"
           >
             비밀번호 찾기
           </Link>

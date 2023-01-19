@@ -77,12 +77,14 @@ function ArtistPage() {
       }
     }
   };
+
   useEffect(() => {
     window.addEventListener("scroll", checkScrollAndShowCareer);
     return () => {
       window.removeEventListener("scroll", checkScrollAndShowCareer);
     };
   }, [window.scroll]);
+
   return (
     <Layout>
       <ToOtherPage />
