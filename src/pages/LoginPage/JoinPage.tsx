@@ -79,7 +79,7 @@ function JoinPage() {
       {isLoading && <LoadingSpinner />}
 
       <div className="flex flex-col items-center my-16">
-        <h1 className="mb-4 md:text-xl">Join</h1>
+        <h1 className="mb-4 md:text-xl lg:text-2xl xl:text-3xl">Join</h1>
 
         <form
           className="flex flex-col items-center mb-12"

@@ -88,12 +88,15 @@ function ArtistPage() {
   return (
     <Layout>
       <ToOtherPage />
+
       <h1 className="font-bold text-3xl pl-4 mb-12 sm:text-6xl lg:pt-4 lg:mb-0 xl:pl-[84px]">
         WE <br />
         WILL BE <br />
         THE BEST
       </h1>
+
       <ArtistsList moveToArtist={moveToArtist} currArtist={currArtist} />
+
       <article className="px-3 flex flex-col xl:px-[50px]">
         {artistArr.map((item, index) => (
           <div
@@ -108,6 +111,7 @@ function ArtistPage() {
             >
               <ArtistCareer career={item.career} />
             </div>
+
             <div
               className="mb-8"
               ref={(element) => {

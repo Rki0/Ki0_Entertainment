@@ -9,7 +9,7 @@ interface PasswordShowBtnProps {
 
 function PasswordShowBtn(props: PasswordShowBtnProps) {
   return (
-    <div className="absolute top-[40px] right-[20px] sm:right-[30px] md:top-[45px]">
+    <div className="absolute top-[40px] right-[20px] sm:right-[30px] md:top-[45px] hover:cursor-pointer">
       {props.showPswd ? (
         <BiShow onClick={props.toggleShowPswd} />
       ) : (

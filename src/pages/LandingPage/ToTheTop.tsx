@@ -24,11 +24,11 @@ function ToTheTop() {
 
   return toggleBtn ? (
     <div
-      className="bg-[rgba(0,0,0,0.7)] rounded-full text-white z-10 w-[30px] h-[30px] md:w-[50px] md:h-[50px] fixed bottom-[45px] right-2 hover:cursor-pointer"
+      className="bg-[rgba(0,0,0,0.6)] rounded-full text-white z-10 w-[40px] h-[40px] md:w-[50px] md:h-[50px] fixed bottom-3 right-3 hover:cursor-pointer hover:bg-[rgba(0,0,0,0.9)]"
       onClick={goToTop}
     >
       <div className="flex items-center justify-center w-full h-full">
-        <TbArrowTopBar />
+        <TbArrowTopBar size={20} />
       </div>
     </div>
   ) : null;

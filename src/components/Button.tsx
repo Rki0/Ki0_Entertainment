@@ -14,12 +14,12 @@ function Button(props: ButtonProps) {
     navigate(-1);
   };
 
+  const buttonStyle =
+    "border-2 border-black w-[100px] md:w-[200px] md:text-xl hover:text-white hover:bg-black";
+
   if (props.submitMode && props.isValid === null) {
     return (
-      <button
-        className="border-2 border-black w-[100px] md:w-[200px] md:text-xl hover:text-white hover:bg-black"
-        type="submit"
-      >
+      <button className={buttonStyle} type="submit">
         {props.children}
       </button>
     );
@@ -30,8 +30,8 @@ function Button(props: ButtonProps) {
       <button
         className={
           props.isValid
-            ? "border-2 border-black w-[100px] md:w-[200px] md:text-xl"
-            : "border-2 border-black bg-black text-white w-[100px] md:w-[200px] md:text-xl"
+            ? buttonStyle
+            : "border-2 border-black bg-black text-white w-[100px] md:w-[200px] md:text-xl cursor-not-allowed"
         }
         type="submit"
         disabled={!props.isValid}
@@ -42,11 +42,7 @@ function Button(props: ButtonProps) {
   }
 
   return (
-    <button
-      className="border-2 border-black w-[100px] md:w-[200px] md:text-xl hover:text-white hover:bg-black"
-      type="submit"
-      onClick={goBack}
-    >
+    <button className={buttonStyle} type="button" onClick={goBack}>
       돌아가기
     </button>
   );
