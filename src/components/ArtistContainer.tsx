@@ -14,7 +14,7 @@ interface ArtistType {
 
 function ArtistContainer({ src, name, artistId, onDelete }: ArtistType) {
   const auth = useContext(AuthContext);
-  const { error, sendRequest, clearError } = useHttpClient();
+  const { sendRequest } = useHttpClient();
   const [toggleLike, setToggleLike] = useState(false);
   const [likeArtist, setLikeArtist] = useState(false);
 
@@ -32,11 +32,10 @@ function ArtistContainer({ src, name, artistId, onDelete }: ArtistType) {
       navigate("/login");
     }
 
-    setLikeArtist((prev) => !prev);
-
     try {
       await sendRequest(
-        "http://localhost:5000/api/like/add",
+        // "http://localhost:5000/api/like/add",
+        `${process.env.REACT_APP_API_BASE}/like/add`,
         "POST",
         JSON.stringify({
           src: src,
@@ -47,8 +46,10 @@ function ArtistContainer({ src, name, artistId, onDelete }: ArtistType) {
           Authorization: "Bearer " + auth.token,
         }
       );
+
+      setLikeArtist((prev) => !prev);
     } catch (err) {
-      console.log(err);
+      alert("이미 추가된 아티스트입니다.");
     }
 
     setTimeout(() => {
@@ -62,7 +63,8 @@ function ArtistContainer({ src, name, artistId, onDelete }: ArtistType) {
 
     try {
       await sendRequest(
-        `http://localhost:5000/api/like/delete/${artistId}`,
+        // `http://localhost:5000/api/like/delete/${artistId}`,
+        `${process.env.REACT_APP_API_BASE}/like/delete/${artistId}`,
         "DELETE",
         null,
         {
@@ -79,9 +81,7 @@ function ArtistContainer({ src, name, artistId, onDelete }: ArtistType) {
           onDelete(artistId);
         }
       }, 500);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   return (

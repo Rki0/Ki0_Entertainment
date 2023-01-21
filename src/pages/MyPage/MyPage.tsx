@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import Layout from "../../Layout/Layout";
 import { AuthContext } from "../../context/auth-context";
@@ -12,23 +12,17 @@ function MyPage() {
   const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
-  const navigate = useNavigate();
   const params = useParams();
 
   const [likeList, setLikeList] = useState<any>([]);
 
   useEffect(() => {
-    if (!auth.isLoggedIn) {
-      alert("로그인이 필요한 기능입니다.");
-      navigate("/login");
-      return;
-    }
-
     // 로그인한 유저가 가지고 있는 아티스트 리스트 불러오기
     const fetchLikeList = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/like/load/${params.userId}`,
+          // `http://localhost:5000/api/like/load/${params.userId}`,
+          `${process.env.REACT_APP_API_BASE}/like/load/${params.userId}`,
           "GET",
           null,
           {

@@ -1,8 +1,7 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import Layout from "../../Layout/Layout";
-import { AuthContext } from "../../context/auth-context";
 import { useHttpClient } from "../../hoc/http-hook";
 import LoadingSpinner from "../../shared/LoadingSpinner";
 import Input from "../../components/Input";
@@ -17,7 +16,6 @@ import Modal from "../../shared/Modal";
 import Button from "../../components/Button";
 
 function JoinPage() {
-  const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   const [formState, inputHandler] = useForm(
@@ -50,8 +48,9 @@ function JoinPage() {
     }
 
     try {
-      const responseData = await sendRequest(
-        "http://localhost:5000/api/users/signup",
+      await sendRequest(
+        // "http://localhost:5000/api/users/signup",
+        `${process.env.REACT_APP_API_BASE}/users/signup`,
         "POST",
         JSON.stringify({
           email: formState.inputs.email.value,
@@ -62,13 +61,10 @@ function JoinPage() {
         }
       );
 
-      auth.login(responseData.userId, responseData.token);
-
       alert("회원가입 성공. 로그인 화면으로 이동합니다.");
       navigate("/login");
     } catch (err) {
       alert("회원가입 실패");
-      console.log(err);
     }
   };
 
