@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Layout from "../../Layout/Layout";
 import Input from "../../components/Input";
@@ -15,7 +15,7 @@ import { AuthContext } from "../../context/auth-context";
 
 function ChangePswdPage() {
   const auth = useContext(AuthContext);
-  const { isLoading, sendRequest } = useHttpClient();
+  const { sendRequest } = useHttpClient();
 
   const [formState, inputHandler] = useForm(
     {
@@ -36,7 +36,6 @@ function ChangePswdPage() {
   );
 
   const navigate = useNavigate();
-  const params = useParams();
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -57,7 +56,7 @@ function ChangePswdPage() {
 
     try {
       const response = await sendRequest(
-        `${process.env.REACT_APP_API_BASE}/users/changePswd/${params.userId}`,
+        `${process.env.REACT_APP_API_BASE}/users/changePswd`,
         "POST",
         JSON.stringify({
           currentPassword: formState.inputs.currentPassword.value,
