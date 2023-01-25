@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import Layout from "../../Layout/Layout";
@@ -14,6 +14,7 @@ import {
 } from "../../utils/validators";
 import Modal from "../../shared/Modal";
 import Button from "../../components/Button";
+import GoogleLoginBtn from "./GoogleLoginBtn";
 
 function LoginPage() {
   const auth = useContext(AuthContext);
@@ -40,7 +41,6 @@ function LoginPage() {
 
     try {
       const responseData = await sendRequest(
-        // "http://localhost:5000/api/users/login",
         `${process.env.REACT_APP_API_BASE}/users/login`,
         "POST",
         JSON.stringify({
@@ -109,12 +109,7 @@ function LoginPage() {
             회원가입
           </Link>
 
-          <Link
-            to="/findpswd"
-            className="border-2 border-black w-[100px] text-center md:w-[200px] md:text-xl hover:text-white hover:bg-black"
-          >
-            비밀번호 찾기
-          </Link>
+          <GoogleLoginBtn />
         </div>
       </div>
     </Layout>
