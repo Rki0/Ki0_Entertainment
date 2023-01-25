@@ -67,7 +67,7 @@ export default function GoogleLogin() {
 
     let params: any = {
       client_id: process.env.REACT_APP_GOOGLE_LOGIN_KEY,
-      redirect_uri: "http://localhost:3000",
+      redirect_uri: process.env.REACT_APP_HOME,
       response_type: "token",
       scope: "https://www.googleapis.com/auth/userinfo.profile",
       include_granted_scopes: "true",
@@ -84,35 +84,14 @@ export default function GoogleLogin() {
 
     document.body.appendChild(form);
     form.submit();
-    console.log("run");
   }
 
   const onGoogleSignIn = async (response: any) => {
     const { credential } = response;
+    console.log("just render", credential);
 
     // trySampleRequest();
-    // oauthSignIn();
-
-    const data = fetch(
-      `https://accounts.google.com/o/oauth2/v2/auth?
-    scope=https%3A//www.googleapis.com/auth/userinfo.profile&
-    include_granted_scopes=true&
-    response_type=token&
-    state=state_parameter_passthrough_value&
-    redirect_uri=${process.env.REACT_APP_HOME}&
-    client_id=${process.env.REACT_APP_GOOGLE_LOGIN_KEY}`
-    );
-
-    console.log(data);
-
-    // let params = {
-    //   client_id: process.env.REACT_APP_GOOGLE_LOGIN_KEY,
-    //   redirect_uri: "http://localhost:3000",
-    //   response_type: "token",
-    //   scope: "https://www.googleapis.com/auth/userinfo.profile",
-    //   include_granted_scopes: "true",
-    //   state: "pass-through value",
-    // };
+    oauthSignIn();
 
     // Google OAuth로 연결되는 코드
     // sendRequest("https://accounts.google.com/o/oauth2/v2/auth", "GET");
@@ -138,7 +117,7 @@ export default function GoogleLogin() {
 
     window.google.accounts.id.renderButton(googleSignInButton.current, {
       width: "250",
-      type: "standard",
+      type: "icon",
       shape: "rectangular",
       theme: "outline",
       size: "large",
