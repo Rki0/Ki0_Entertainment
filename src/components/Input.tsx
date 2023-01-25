@@ -28,7 +28,7 @@ interface InputProps {
   type: string;
   placeholder: string;
   label: string;
-  errorText: string;
+  errorText: string | null;
   validText: string | null;
   onInput: (id: string, value: string, isValid: boolean) => void;
   validators: any[];

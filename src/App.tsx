@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 import { AuthContext } from "./context/auth-context";
 import { useAuth } from "./hoc/auth-hook";
@@ -18,38 +19,50 @@ const BusinessPage = React.lazy(
 const MyPage = React.lazy(() => import("./pages/MyPage/MyPage"));
 const LoginPage = React.lazy(() => import("./pages/LoginPage/LoginPage"));
 const JoinPage = React.lazy(() => import("./pages/LoginPage/JoinPage"));
+const MyArtistPage = React.lazy(() => import("./pages/MyPage/MyArtistPage"));
+const ChangePswdPage = React.lazy(
+  () => import("./pages/MyPage/ChangePswdPage")
+);
+const WithdrawPage = React.lazy(() => import("./pages/MyPage/WithdrawPage"));
 
 function App() {
   const { token, login, logout, userId } = useAuth();
 
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
-      <AuthContext.Provider
-        value={{ isLoggedIn: !!token, token, userId, login, logout }}
-      >
-        <Suspense fallback={<LoadingSpinner />}>
-          <Routes>
-            <Route element={<AnyRoute />}>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/company" element={<CompanyPage />} />
-              <Route path="/artist" element={<ArtistPage />} />
-              <Route path="/business" element={<BusinessPage />} />
-            </Route>
+    <GoogleOAuthProvider clientId={`${process.env.REACT_APP_GOOGLE_LOGIN_KEY}`}>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <AuthContext.Provider
+          value={{ isLoggedIn: !!token, token, userId, login, logout }}
+        >
+          <Suspense fallback={<LoadingSpinner />}>
+            <Routes>
+              <Route element={<AnyRoute />}>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/company" element={<CompanyPage />} />
+                <Route path="/artist" element={<ArtistPage />} />
+                <Route path="/business" element={<BusinessPage />} />
+              </Route>
 
-            <Route element={<PrivateRoute />}>
-              <Route path="/mypage/:userId" element={<MyPage />} />
-            </Route>
+              <Route element={<PrivateRoute />}>
+                <Route path="/mypage/:userId">
+                  <Route index element={<MyPage />} />
+                  <Route path="myartist" element={<MyArtistPage />} />
+                  <Route path="changepswd" element={<ChangePswdPage />} />
+                  <Route path="withdraw" element={<WithdrawPage />} />
+                </Route>
+              </Route>
 
-            <Route element={<PublicRoute />}>
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/join" element={<JoinPage />} />
-            </Route>
+              <Route element={<PublicRoute />}>
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/join" element={<JoinPage />} />
+              </Route>
 
-            <Route path="/*" element={<UnValidPage />} />
-          </Routes>
-        </Suspense>
-      </AuthContext.Provider>
-    </BrowserRouter>
+              <Route path="/*" element={<UnValidPage />} />
+            </Routes>
+          </Suspense>
+        </AuthContext.Provider>
+      </BrowserRouter>
+    </GoogleOAuthProvider>
   );
 }
 

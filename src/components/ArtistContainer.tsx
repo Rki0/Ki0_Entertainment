@@ -34,7 +34,6 @@ function ArtistContainer({ src, name, artistId, onDelete }: ArtistType) {
 
     try {
       await sendRequest(
-        // "http://localhost:5000/api/like/add",
         `${process.env.REACT_APP_API_BASE}/like/add`,
         "POST",
         JSON.stringify({
@@ -63,7 +62,6 @@ function ArtistContainer({ src, name, artistId, onDelete }: ArtistType) {
 
     try {
       await sendRequest(
-        // `http://localhost:5000/api/like/delete/${artistId}`,
         `${process.env.REACT_APP_API_BASE}/like/delete/${artistId}`,
         "DELETE",
         null,

@@ -43,7 +43,7 @@ function Button(props: ButtonProps) {
 
   return (
     <button className={buttonStyle} type="button" onClick={goBack}>
-      돌아가기
+      {props.children}
     </button>
   );
 }

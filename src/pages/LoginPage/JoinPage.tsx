@@ -49,7 +49,6 @@ function JoinPage() {
 
     try {
       await sendRequest(
-        // "http://localhost:5000/api/users/signup",
         `${process.env.REACT_APP_API_BASE}/users/signup`,
         "POST",
         JSON.stringify({
