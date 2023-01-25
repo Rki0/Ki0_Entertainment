@@ -14,7 +14,6 @@ import {
 } from "../../utils/validators";
 import Modal from "../../shared/Modal";
 import Button from "../../components/Button";
-import GoogleLoginBtn from "./GoogleLoginBtn";
 
 function LoginPage() {
   const auth = useContext(AuthContext);
@@ -108,8 +107,6 @@ function LoginPage() {
           >
             회원가입
           </Link>
-
-          <GoogleLoginBtn />
         </div>
       </div>
     </Layout>
