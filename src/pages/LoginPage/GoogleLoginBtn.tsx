@@ -88,17 +88,16 @@ export default function GoogleLogin() {
 
   const onGoogleSignIn = async (response: any) => {
     const { credential } = response;
-    console.log("just render", credential);
 
     // trySampleRequest();
-    oauthSignIn();
+    // oauthSignIn();
 
     // Google OAuth로 연결되는 코드
     // sendRequest("https://accounts.google.com/o/oauth2/v2/auth", "GET");
 
     // // 백엔드와 연결되는 코드
     // sendRequest(
-    //   `${process.env.REACT_APP_API_BASE}/users/googleLogin`,
+    //   `${process.env.REACT_APP_API_BASE}/users/google`,
     //   "POST",
     //   JSON.stringify({
     //     credential,
@@ -107,6 +106,15 @@ export default function GoogleLogin() {
     //     "Content-Type": "application/json",
     //   }
     // );
+
+    try {
+      const data = await sendRequest(
+        `${process.env.REACT_APP_API_BASE}/users/google`
+      );
+      console.log("from server", data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useScript("https://accounts.google.com/gsi/client", () => {
