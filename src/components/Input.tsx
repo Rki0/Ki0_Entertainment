@@ -64,47 +64,48 @@ function Input(props: InputProps) {
     });
   };
 
-  const toggleShowPswd = () => {
-    setShowPswd((prev) => !prev);
-  };
+  const content = (
+    <div className="flex flex-col">
+      <label htmlFor={props.id} className="md:text-lg lg:text-xl">
+        {props.label}
+      </label>
+      <input
+        id={props.id}
+        type={
+          props.type === "email" ? props.type : showPswd ? "text" : "password"
+        }
+        placeholder={props.placeholder}
+        value={inputState.value}
+        onChange={changeHandler}
+        onBlur={touchHandler}
+        minLength={props.type === "password" ? 8 : undefined}
+        maxLength={props.type === "password" ? 12 : undefined}
+        required
+        className="border-2 border-black mb-2 h-12 pl-2 w-[300px] md:w-[500px] md:text-xl focus:outline-none"
+      />
+
+      {props.type === "password" && (
+        <PasswordShowBtn showPswd={showPswd} setShowPswd={setShowPswd} />
+      )}
+
+      {!inputState.isValid && inputState.isTouched && (
+        <p className="mb-2 font-bold text-red-500">{props.errorText}</p>
+      )}
+
+      {inputState.isValid && (
+        <p className="mb-2 font-bold text-green-400">{props.validText}</p>
+      )}
+    </div>
+  );
 
   return (
-    <>
-      <div className="flex flex-col">
-        <label htmlFor={props.id} className="md:text-lg lg:text-xl">
-          {props.label}
-        </label>
-        <input
-          id={props.id}
-          type={
-            props.type === "email" ? props.type : showPswd ? "text" : "password"
-          }
-          placeholder={props.placeholder}
-          value={inputState.value}
-          onChange={changeHandler}
-          onBlur={touchHandler}
-          minLength={props.type === "password" ? 8 : undefined}
-          maxLength={props.type === "password" ? 12 : undefined}
-          required
-          className="border-2 border-black mb-2 h-12 pl-2 w-[300px] md:w-[500px] md:text-xl focus:outline-none"
-        />
-
-        {props.type === "password" && (
-          <PasswordShowBtn
-            showPswd={showPswd}
-            toggleShowPswd={toggleShowPswd}
-          />
-        )}
-
-        {!inputState.isValid && inputState.isTouched && (
-          <p className="mb-2 font-bold text-red-500">{props.errorText}</p>
-        )}
-
-        {inputState.isValid && (
-          <p className="mb-2 font-bold text-green-400">{props.validText}</p>
-        )}
-      </div>
-    </>
+    <div className="flex flex-col items-center">
+      {props.type === "password" ? (
+        <div className="relative">{content}</div>
+      ) : (
+        content
+      )}
+    </div>
   );
 }
 

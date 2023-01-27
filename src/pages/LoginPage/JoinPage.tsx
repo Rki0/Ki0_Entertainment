@@ -80,52 +80,42 @@ function JoinPage() {
           className="flex flex-col items-center mb-12"
           onSubmit={submitHandler}
         >
-          <div className="flex flex-col items-center">
-            <Input
-              id="email"
-              type="email"
-              placeholder="이메일을 입력해주세요"
-              label="E-Mail"
-              errorText="이메일 형식이 틀렸습니다. 다시 입력해주세요."
-              validText="알맞은 형식의 이메일입니다."
-              onInput={inputHandler}
-              validators={[VALIDATOR_EMAIL()]}
-            />
-          </div>
+          <Input
+            id="email"
+            type="email"
+            placeholder="이메일을 입력해주세요"
+            label="E-Mail"
+            errorText="이메일 형식이 틀렸습니다. 다시 입력해주세요."
+            validText="알맞은 형식의 이메일입니다."
+            onInput={inputHandler}
+            validators={[VALIDATOR_EMAIL()]}
+          />
 
-          <div className="flex flex-col items-center">
-            <div className="relative">
-              <Input
-                id="password"
-                type="password"
-                placeholder="비밀번호를 입력해주세요(8 - 12자리)"
-                label="Password"
-                errorText="숫자+영문+특수문자(!,@,#,$,%,^) 조합으로 입력해주세요."
-                validText="알맞은 형식의 비밀번호입니다."
-                onInput={inputHandler}
-                validators={[VALIDATOR_MINLENGTH(8), VALIDATOR_MAXLENGTH(12)]}
-              />
-            </div>
-          </div>
+          <Input
+            id="password"
+            type="password"
+            placeholder="비밀번호를 입력해주세요(8 - 12자리)"
+            label="Password"
+            errorText="숫자+영문+특수문자(!,@,#,$,%,^) 조합으로 입력해주세요."
+            validText="알맞은 형식의 비밀번호입니다."
+            onInput={inputHandler}
+            validators={[VALIDATOR_MINLENGTH(8), VALIDATOR_MAXLENGTH(12)]}
+          />
 
-          <div className="flex flex-col items-center">
-            <div className="relative">
-              <Input
-                id="passwordCheck"
-                type="password"
-                placeholder="비밀번호를 다시 한번 입력해주세요"
-                label="Check Password"
-                errorText="맞게 입력했는지 다시 확인해주세요."
-                validText="비밀번호 확인이 완료되었습니다."
-                onInput={inputHandler}
-                validators={[
-                  VALIDATOR_MINLENGTH(8),
-                  VALIDATOR_MAXLENGTH(12),
-                  VALIDATOR_PASSWORD(formState.inputs.password.value),
-                ]}
-              />
-            </div>
-          </div>
+          <Input
+            id="passwordCheck"
+            type="password"
+            placeholder="비밀번호를 다시 한번 입력해주세요"
+            label="Check Password"
+            errorText="맞게 입력했는지 다시 확인해주세요."
+            validText="비밀번호 확인이 완료되었습니다."
+            onInput={inputHandler}
+            validators={[
+              VALIDATOR_MINLENGTH(8),
+              VALIDATOR_MAXLENGTH(12),
+              VALIDATOR_PASSWORD(formState.inputs.password.value),
+            ]}
+          />
 
           <Button isValid={formState.isValid} submitMode={true}>
             회원가입

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { TbArrowTopBar } from "react-icons/tb";
 
 function ToTheTop() {
-  const [toggleBtn, setToggleBtn] = useState(true);
+  const [toggleBtn, setToggleBtn] = useState(false);
 
   const handleScroll = () => {
     const { scrollY } = window;
@@ -18,9 +18,9 @@ function ToTheTop() {
     };
   }, []);
 
-  const goToTop = () => {
+  const goToTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  }, []);
 
   return toggleBtn ? (
     <div

@@ -4,19 +4,23 @@ import { BiShow, BiHide } from "react-icons/bi";
 
 interface PasswordShowBtnProps {
   showPswd: boolean;
-  toggleShowPswd: () => void;
+  setShowPswd: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function PasswordShowBtn(props: PasswordShowBtnProps) {
+  const toggleShowPswd = () => {
+    props.setShowPswd((prev) => !prev);
+  };
+
   return (
     <div className="absolute top-[40px] right-[20px] sm:right-[30px] md:top-[45px] hover:cursor-pointer">
       {props.showPswd ? (
-        <BiShow onClick={props.toggleShowPswd} />
+        <BiShow onClick={toggleShowPswd} />
       ) : (
-        <BiHide onClick={props.toggleShowPswd} />
+        <BiHide onClick={toggleShowPswd} />
       )}
     </div>
   );
 }
 
-export default PasswordShowBtn;
+export default React.memo(PasswordShowBtn);

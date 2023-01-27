@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import Layout from "../../Layout/Layout";
@@ -58,6 +58,20 @@ function LoginPage() {
     }
   };
 
+  // 한번밖에 쓰이지 않는 코드이기 때문에 컴포넌트화를 하지 않음.
+  const toJoinPage = useMemo(() => {
+    return (
+      <div className="flex flex-col items-center">
+        <Link
+          to="/join"
+          className="border-2 border-black w-[100px] text-center mb-2 md:w-[200px] md:text-xl hover:text-white hover:bg-black"
+        >
+          회원가입
+        </Link>
+      </div>
+    );
+  }, []);
+
   return (
     <Layout>
       {error && <Modal error={error} clearModal={clearError} />}
@@ -66,7 +80,6 @@ function LoginPage() {
 
       <div className="flex flex-col items-center my-16">
         <h1 className="mb-4 md:text-xl lg:text-2xl xl:text-3xl">Login</h1>
-
         <form
           className="flex flex-col items-center justify-center mb-12"
           onSubmit={submitHandler}
@@ -100,14 +113,7 @@ function LoginPage() {
           </Button>
         </form>
 
-        <div className="flex flex-col items-center">
-          <Link
-            to="/join"
-            className="border-2 border-black w-[100px] text-center mb-2 md:w-[200px] md:text-xl hover:text-white hover:bg-black"
-          >
-            회원가입
-          </Link>
-        </div>
+        {toJoinPage}
       </div>
     </Layout>
   );

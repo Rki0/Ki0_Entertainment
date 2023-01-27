@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import LikeControlButton from "./LikeControlButton";
 import { AiOutlineClose } from "react-icons/ai";

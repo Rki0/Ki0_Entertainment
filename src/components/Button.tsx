@@ -48,4 +48,4 @@ function Button(props: ButtonProps) {
   );
 }
 
-export default Button;
+export default React.memo(Button);
